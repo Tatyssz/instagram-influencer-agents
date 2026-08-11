@@ -1,0 +1,17 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Dados sincronizados (contém info pessoal da conta)
+data/sync/*.json
+data/sync/resumo.txt
+!.gitkeep
+
+# Perfil local (sessão browser, histórico, alvos pessoais)
+data/profile/browser_profile/
+data/profile/instagram_session.json
+data/profile/apply_pendente.txt
+data/profile/history.json
+data/profile/target.json
