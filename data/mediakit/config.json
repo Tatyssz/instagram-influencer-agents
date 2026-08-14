@@ -1,0 +1,374 @@
+{
+  "_comment": "Conteúdo editorial do media kit. Métricas vêm de estimativa-metricas.json.",
+  "display_name": "Tatiana Zacharias",
+  "hero_subtitle": "UGC Creator · Beauty · Hair · Makeup",
+  "tagline": "Conteúdo de beleza, cabelo cacheado e maquiagem para marcas que valorizam autenticidade e diversidade.",
+  "about": "Creator UGC de hair & beauty na Baixada Santista — tutoriais, reviews e Reels patrocinados para marcas de cabelo, skincare e maquiagem.",
+  "quem_sou": "Comunicação sempre foi meu motor. Conto histórias de beleza que grudam — com autenticidade, representatividade e criatividade em cada frame.",
+  "quem_sou_extra": "Transparência e verdade em tudo que faço. Cabelo cacheado, maquiagem e skincare na prática — conteúdo UGC profissional que marcas usam em campanhas, ads e lançamentos.",
+  "badges": ["UGC Beauty", "Hair & Makeup", "Baixada Santista"],
+  "value_props": [
+    "Conteúdo autêntico de cabelo cacheado & maquiagem",
+    "UGC profissional pronto para ads e campanhas",
+    "Audiência feminina · Brasil · Baixada Santista"
+  ],
+  "header_badge": "Beauty · Hair · Makeup",
+  "theme": {
+    "_name": "013 Glow · claro (blush · pêssego · cobre · mauve)",
+    "bg": "#F3EBE6",
+    "white": "#FFFAF7",
+    "warm": "#E8DED6",
+    "ink": "#3A2E28",
+    "body": "#5A4842",
+    "muted": "#9A8580",
+    "blush": "#E8A89A",
+    "peach": "#E8956F",
+    "mauve": "#C9A0A8",
+    "copper": "#D4846A",
+    "copper_deep": "#B86B58",
+    "blush_light": "#F0C4B8",
+    "line": "#DDD0C8",
+    "mocha": "#52463E"
+  },
+  "portfolio": {
+    "mode": "partnerships",
+    "sort_by": "instagram",
+    "auto_cases": true,
+    "include_categories": ["moda", "perfume", "cabelo", "eventos"],
+    "include_media_ids": [
+      "17880539133669023",
+      "18071655761192823",
+      "18060974546256170",
+      "18051435887348026",
+      "18080001578027059",
+      "18294050947250223",
+      "18328460446207355",
+      "18345409606088759",
+      "17927718698764531",
+      "18051705548138971",
+      "18077213902676510",
+      "18060659845984004",
+      "17990017472677723",
+      "18030685154152895",
+      "18146252194343099"
+    ],
+    "media_categories": {
+      "17880539133669023": ["moda"],
+      "18071655761192823": ["moda"],
+      "18060104702308136": ["moda"],
+      "18047874371394227": ["perfume", "moda"],
+      "18349587172174548": ["cabelo"],
+      "18060974546256170": ["eventos"],
+      "18051435887348026": ["eventos"],
+      "18080001578027059": ["beleza"],
+      "18294050947250223": ["eventos"],
+      "18328460446207355": ["eventos"],
+      "18345409606088759": ["eventos"],
+      "17927718698764531": ["eventos"],
+      "18051705548138971": ["eventos"],
+      "18077213902676510": ["eventos"],
+      "18060659845984004": ["eventos"],
+      "17990017472677723": ["eventos"],
+      "18030685154152895": ["eventos"],
+      "18146252194343099": ["eventos"],
+      "17875801038244955": ["eventos"],
+      "18221763445295425": ["beleza"],
+      "18034072727511775": ["eventos"],
+      "17944669855099124": ["beleza"]
+    },
+    "_include_media_help": "IDs de reels de moda sem tag de marca — curadoria manual por print.",
+    "reels_only_extra_categories": true,
+    "exclude_media_ids": [
+      "17903608750203543",
+      "17842024837144418",
+      "17849407117097454",
+      "17848184161073193",
+      "17948749615006798",
+      "17859010192049924",
+      "17975675725159342",
+      "17869532935005371",
+      "17876215435173145",
+      "17899773457038249",
+      "17869808566463809",
+      "17883929533018613",
+      "18004803598021961",
+      "17886552169019187",
+      "17857625023089665",
+      "18058338874908301",
+      "17944184927977833",
+      "17846417101222424",
+      "17856711442151639",
+      "17859736087112175",
+      "17851458877067866",
+      "17842018051038089",
+      "17987256389766637",
+      "18027448244592113",
+      "18236392186231008",
+      "18012376390857251",
+      "17961495199818328",
+      "17989459063529915",
+      "18053152276923765",
+      "17903454338962889",
+      "18050668510948125",
+      "18008741234639452",
+      "18007269767501823",
+      "18304602136237373",
+      "18042252104608533",
+      "18269710594277940",
+      "18498993595035955",
+      "18059405021043389",
+      "17930454122913002",
+      "18094385080544392",
+      "17942789612842855",
+      "18045787580355783",
+      "17992921948949343",
+      "17883788864343827",
+      "17882901770371044",
+      "18230790436018838",
+      "17933651974516748",
+      "18087517822269201",
+      "17896561384970923",
+      "17900706220958518",
+      "18229240135044887",
+      "17911345135774767",
+      "17849496866554356",
+      "17865940434471994",
+      "17981664425656338",
+      "18373463305062075",
+      "18004114150698198",
+      "18083744983220909"
+    ],
+    "_exclude_help": "Posts marcados nos prints da Tatiana (curadoria manual por media_id)."
+  },
+  "portfolio_categories": [
+    { "id": "beleza", "name": "Beleza" },
+    { "id": "cabelo", "name": "Cabelo" },
+    { "id": "moda", "name": "Moda" },
+    { "id": "perfume", "name": "Perfume" },
+    { "id": "eventos", "name": "Eventos" }
+  ],
+  "brand_partnerships": [
+    {
+      "name": "Xêrosa",
+      "category": "perfume",
+      "match": ["xerosa", "xêrosa", "heymigs", "meuveraosalonline"]
+    },
+    {
+      "name": "Salon Line",
+      "category": "cabelo",
+      "match": ["salonline", "salonlinebrasil", "salon line", "todecacho"]
+    },
+    {
+      "name": "L'Oréal Paris",
+      "category": "beleza",
+      "match": ["loreal", "lorealistar", "lorealbrasil", "lorealgroupe", "elseve", "collagen lifter", "revitalift", "solar expertise"]
+    },
+    {
+      "name": "Haskell",
+      "category": "cabelo",
+      "match": ["haskell", "haskelloficial", "se curve", "secuve"]
+    },
+    {
+      "name": "Widi Care",
+      "category": "cabelo",
+      "match": ["widicare", "widi care", "widicareoficial"]
+    },
+    {
+      "name": "Bello Cachos",
+      "category": "cabelo",
+      "match": ["belloscachos", "beloscachos", "bello cachos", "belloscachos_oficial", "belloscachos_hairtherapy"]
+    },
+    {
+      "name": "Beyou Hair",
+      "category": "cabelo",
+      "match": ["beyouhair", "beyou hair", "beyouhairbrasil"]
+    },
+    {
+      "name": "Felps",
+      "category": "cabelo",
+      "match": ["felps", "felpsprofessional", "felpsoficial"]
+    },
+    {
+      "name": "Embelleze",
+      "category": "cabelo",
+      "match": ["embelleze", "novex", "embellezeoficial"]
+    },
+    {
+      "name": "Inoar",
+      "category": "cabelo",
+      "match": ["inoar", "inoaroficial"]
+    },
+    {
+      "name": "Yamá",
+      "category": "cabelo",
+      "match": ["yama", "yamá", "yamacosmeticos", "yamácosméticos"]
+    },
+    {
+      "name": "Cless Cosméticos",
+      "category": "cabelo",
+      "match": ["cless", "clesscosmeticos", "cless cosméticos"]
+    },
+    {
+      "name": "Kohll Beauty",
+      "category": "cabelo",
+      "match": ["kohll", "kohllbeauty", "kohll beauty"]
+    },
+    {
+      "name": "Raavi",
+      "category": "cabelo",
+      "match": ["raavi", "raavioficial"]
+    },
+    {
+      "name": "All Nature Professional",
+      "category": "cabelo",
+      "match": ["allnature", "all nature"]
+    },
+    {
+      "name": "Amávia",
+      "category": "cabelo",
+      "match": ["amavia", "amávia", "amaviaoficial"]
+    },
+    {
+      "name": "Hidramais",
+      "category": "beleza",
+      "match": ["hidramais", "hidramaisoficial", "outubrorosa", "outubro rosa"]
+    },
+    {
+      "name": "Dailus",
+      "category": "beleza",
+      "match": ["dailus", "dailovers", "dailusmakeup"]
+    },
+    {
+      "name": "Phálle Beauty",
+      "category": "beleza",
+      "match": ["phalle", "phallebeauty", "phallebeautyoficial"]
+    },
+    {
+      "name": "Dalla",
+      "category": "beleza",
+      "match": ["@dalla", "dallamakeup", "batom da dalla", "gloss da dalla"]
+    },
+    {
+      "name": "KV Makeup",
+      "category": "beleza",
+      "match": ["kvmakeup", "kv makeup", "#kvmakeup", "kvmakeupbrasil"]
+    },
+    {
+      "name": "Nina Makeup",
+      "category": "beleza",
+      "match": ["ninamakeup", "ninamkup", "nina makeup"]
+    },
+    {
+      "name": "Catharine Hill",
+      "category": "beleza",
+      "match": ["catharinehill", "catharine hill", "catharinehilloficial"]
+    },
+    {
+      "name": "Vizzela",
+      "category": "beleza",
+      "match": ["vizzela", "vizzelaoficial"]
+    },
+    {
+      "name": "Reiny Cosméticos",
+      "category": "beleza",
+      "match": ["reiny", "reinycosmeticos"]
+    },
+    {
+      "name": "Bauny",
+      "category": "beleza",
+      "match": ["bauny", "baunycosmeticos"]
+    },
+    {
+      "name": "CT Trends",
+      "category": "moda",
+      "match": ["ct_trends", "ct trends"]
+    },
+    {
+      "name": "Lua e Neve",
+      "category": "perfume",
+      "match": ["lua.e.neve", "luaeneve", "lua e neve"]
+    },
+    {
+      "name": "Essenciart",
+      "category": "perfume",
+      "match": ["essenciart", "brbrand.imports", "brbrand"]
+    },
+    {
+      "name": "Lowell",
+      "category": "perfume",
+      "match": ["lowelloficial", "lowell"]
+    },
+    {
+      "name": "Boutique Preta",
+      "category": "moda",
+      "match": ["boutiquepreta", "boutique preta", "boutiquepreta013"]
+    }
+  ],
+  "brands": [
+    { "name": "Salon Line", "type": "parceria" },
+    { "name": "Xêrosa", "type": "campanha" },
+    { "name": "L'Oréal Paris", "type": "parceria" },
+    { "name": "Elseve", "type": "campanha" },
+    { "name": "Haskell", "type": "parceria" },
+    { "name": "Widi Care", "type": "parceria" },
+    { "name": "Bello Cachos", "type": "parceria" },
+    { "name": "Beyou Hair", "type": "parceria" },
+    { "name": "Felps", "type": "parceria" },
+    { "name": "Embelleze", "type": "parceria" },
+    { "name": "Inoar", "type": "parceria" },
+    { "name": "Yamá", "type": "parceria" },
+    { "name": "Cless Cosméticos", "type": "parceria" },
+    { "name": "Kohll Beauty", "type": "parceria" },
+    { "name": "Raavi", "type": "parceria" },
+    { "name": "Hidramais", "type": "parceria" },
+    { "name": "Dailus", "type": "parceria" },
+    { "name": "Phálle Beauty", "type": "parceria" },
+    { "name": "Dalla", "type": "parceria" },
+    { "name": "KV Makeup", "type": "parceria" },
+    { "name": "Nina Makeup", "type": "parceria" },
+    { "name": "Catharine Hill", "type": "parceria" },
+    { "name": "Vizzela", "type": "parceria" },
+    { "name": "Reiny Cosméticos", "type": "parceria" },
+    { "name": "Bauny", "type": "parceria" },
+    { "name": "Lua e Neve", "type": "parceria" },
+    { "name": "Essenciart", "type": "parceria" },
+    { "name": "Lowell", "type": "parceria" },
+    { "name": "CT Trends", "type": "moda" },
+    { "name": "Boutique Preta", "type": "moda" },
+    { "name": "Todecacho", "type": "parceria" }
+  ],
+  "services": [
+    { "name": "Reels patrocinado", "detail": "Beleza · roteiro + gravação + entrega" },
+    { "name": "Stories", "detail": "Lançamento · tutorial · CTA" },
+    { "name": "UGC para ads", "detail": "Vídeo vertical beauty · uso pago" },
+    { "name": "Cobertura de evento", "detail": "Beauty fair · lançamentos" }
+  ],
+  "pricing_note": "Valores sob consulta · pacotes beauty",
+  "profile_photo": "data/mediakit/profile-hd.png",
+  "_profile_photo_help": "Opcional: data/mediakit/profile-hd.jpg (min. 800px largura) para foto nítida no hero",
+  "hero_floats": [
+    "data/mediakit/hero-float-1.png",
+    "data/mediakit/hero-float-2.png",
+    "data/mediakit/hero-float-3.png"
+  ],
+  "contact": {
+    "instagram": "tatyzacharias",
+    "email": null,
+    "whatsapp": null,
+    "cta": "Parcerias via DM"
+  },
+  "content_filter": {
+    "beauty_keywords": [
+      "maquiagem", "makeup", "batom", "contorno", "cabelo", "cachead", "cachos",
+      "skincare", "beauty", "elseve", "haskell", "hidramais", "salon", "dailus",
+      "kv", "phalle", "leave-in", "todecacho", "beautyfair", "hair", "ugc",
+      "look", "gloss", "unha", "esmalte", "retinol", "solar", "carnaval", "loreal",
+      "vizzela", "reiny", "bauny", "nina", "dalla"
+    ],
+    "exclude_keywords": [
+      "gêmeos", "gemeos", "filhos", "família", "familia", "marido", "mãe", "mae",
+      "copa", "humor", "textão", "textao", "blogueira", "gratidão define",
+      "mães de meninas", "sapo", "trend", "fy ", "entendedores"
+    ]
+  }
+}

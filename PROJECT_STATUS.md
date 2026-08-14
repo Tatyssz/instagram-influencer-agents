@@ -4,8 +4,8 @@
 **Autora:** Tatiana Zacharias ([@Tatyssz](https://github.com/Tatyssz))  
 **Tipo:** Projeto pessoal / portfólio (sem vínculo empresarial)  
 **Licença:** MIT — disponível para uso, estudo e comercialização  
-**Versão atual:** 0.3.0  
-**Última atualização:** 11/08/2026
+**Versão atual:** 0.4.0  
+**Última atualização:** 14/08/2026
 
 ---
 
@@ -25,8 +25,8 @@ Toolkit Python + Cursor IDE para **creators de Instagram** conectarem a **Meta G
 | Análise de perfil (insights) | ✅ Concluído | 100% |
 | Otimização de bio (workflow) | 🔄 Em andamento | 60% |
 | Automação Playwright | 🔄 Em teste | 80% |
-| Media Kit automático | 📋 Planejado | 0% |
-| Sync paginado (>30 posts) | 📋 Planejado | 0% |
+| Media Kit automático | ✅ Concluído | 100% |
+| Sync paginado (>30 posts) | ✅ Concluído | 90% |
 | Publicação de Reels via API | 📋 Backlog | 0% |
 | Pacotes comerciais / pricing | 📋 Backlog | 0% |
 
@@ -72,9 +72,11 @@ Toolkit Python + Cursor IDE para **creators de Instagram** conectarem a **Meta G
 - [ ] Submit confiável 100% (React input events)
 - [ ] Edição de nome via web (UI Meta mudou)
 
-### Fase 5 — Produto comercial 📋
+### Fase 5 — Produto comercial 🔄
 
-- [ ] Media Kit PDF/HTML
+- [x] Media Kit PDF/HTML luxe
+- [x] Portfólio curado por categoria (84 peças)
+- [x] Documentação de curadoria (`docs/MEDIA-KIT-CURADORIA.md`)
 - [ ] Template de proposta para marcas
 - [ ] Curso gravado (material em `docs/`)
 - [ ] Landing page / venda do template

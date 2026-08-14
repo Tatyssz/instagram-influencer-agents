@@ -5,6 +5,7 @@ Sincroniza perfil e posts do Instagram via Instagram API with Instagram Login.
 Uso:
   python scripts/sync_instagram.py auth   # login OAuth (uma vez)
   python scripts/sync_instagram.py sync   # baixa dados para data/sync/
+  python scripts/sync_instagram.py sync --media-limit 250  # catálogo amplo p/ portfólio
 """
 
 from __future__ import annotations
@@ -289,6 +290,37 @@ def fetch_media(token: str, ig_user_id: str, limit: int = 30) -> list[dict]:
     return items[:limit]
 
 
+def _success_tuple(post: dict) -> tuple[int, int, int, int]:
+    ins = post.get("insights") or {}
+    return (
+        int(post.get("like_count") or 0),
+        int(ins.get("views") or 0),
+        int(ins.get("reach") or 0),
+        int(post.get("comments_count") or 0),
+    )
+
+
+def enrich_media_insights(token: str, media: list[dict], top_n: int = 40, priority_ids: set[str] | None = None) -> None:
+    """Insights nos top performers + mídia do portfólio de parcerias."""
+    videos = [m for m in media if m.get("media_type") in ("VIDEO", "REEL")]
+    videos.sort(key=_success_tuple, reverse=True)
+    insight_ids = {m["id"] for m in videos[:top_n]}
+    if priority_ids:
+        insight_ids |= priority_ids
+
+    for item in media:
+        if item["id"] in insight_ids:
+            item["insights"] = fetch_media_insights(
+                token, item["id"], item.get("media_type", "IMAGE")
+            )
+        else:
+            item.setdefault("insights", {})
+
+
+def sort_media_by_success(media: list[dict]) -> list[dict]:
+    return sorted(media, key=_success_tuple, reverse=True)
+
+
 def fetch_media_insights(token: str, media_id: str, media_type: str) -> dict:
     if media_type in ("VIDEO", "REEL"):
         metrics = "views,reach,saved,shares,total_interactions"
@@ -302,22 +334,138 @@ def fetch_media_insights(token: str, media_id: str, media_type: str) -> dict:
         return {}
 
 
+def _insight_total_value(item: dict) -> int | dict | list | None:
+    total = item.get("total_value")
+    if isinstance(total, dict) and "value" in total:
+        return total["value"]
+    return total or item.get("values")
+
+
+def fetch_account_insights_by_period(token: str, ig_user_id: str) -> dict[str, dict]:
+    """Alcance, views e engajamento por periodo (day, week, days_28)."""
+    metrics = "reach,views,accounts_engaged"
+    periods = ("day", "week", "days_28")
+    by_period: dict[str, dict] = {}
+
+    for period in periods:
+        period_data: dict = {}
+        try:
+            data = ig_get(
+                f"{ig_user_id}/insights",
+                token,
+                {"metric": metrics, "period": period, "metric_type": "total_value"},
+            )
+            for item in data.get("data", []):
+                period_data[item["name"]] = _insight_total_value(item)
+        except RuntimeError as exc:
+            period_data["_error"] = str(exc)
+        by_period[period] = period_data
+
+    return by_period
+
+
+def fetch_follower_demographics(token: str, ig_user_id: str) -> dict[str, list[dict] | dict]:
+    """Demografia dos seguidores: idade, genero, cidade, pais."""
+    demographics: dict[str, list[dict] | dict] = {}
+    breakdowns = ("age", "gender", "city", "country")
+
+    for breakdown in breakdowns:
+        try:
+            data = ig_get(
+                f"{ig_user_id}/insights",
+                token,
+                {
+                    "metric": "follower_demographics",
+                    "period": "lifetime",
+                    "metric_type": "total_value",
+                    "breakdown": breakdown,
+                },
+            )
+            results = data["data"][0]["total_value"]["breakdowns"][0]["results"]
+            demographics[breakdown] = [
+                {
+                    "dimension": row["dimension_values"][0],
+                    "count": row["value"],
+                }
+                for row in sorted(results, key=lambda r: r["value"], reverse=True)
+            ]
+        except (RuntimeError, KeyError, IndexError) as exc:
+            demographics[breakdown] = {"_error": str(exc)}
+
+    return demographics
+
+
 def fetch_account_insights(token: str, ig_user_id: str) -> dict:
-    result: dict = {}
-    try:
-        data = ig_get(
-            f"{ig_user_id}/insights",
-            token,
-            {"metric": "reach,views,follower_count", "period": "day", "metric_type": "total_value", "since": "", "until": ""},
-        )
-        for item in data.get("data", []):
-            result[item["name"]] = item.get("total_value") or item.get("values")
-    except RuntimeError as exc:
-        result["_note"] = f"Insights parciais: {exc}"
-    return result
+    """Insights da conta: periodos + demografia + notas para o media kit."""
+    by_period = fetch_account_insights_by_period(token, ig_user_id)
+    demographics = fetch_follower_demographics(token, ig_user_id)
+
+    notes = [
+        "Alcance days_28 via API acumula apenas desde a conexao do app Meta.",
+        "Compare com Insights do app (30 dias) ate ~28 dias apos o OAuth.",
+    ]
+
+    return {
+        "by_period": by_period,
+        "demographics": demographics,
+        "notes": notes,
+        # Atalho para compatibilidade (periodo de 28 dias)
+        "reach": {"value": by_period.get("days_28", {}).get("reach")},
+        "views": {"value": by_period.get("days_28", {}).get("views")},
+    }
 
 
-def run_sync() -> None:
+def _format_demographic_top(entries: list[dict] | dict, limit: int = 3) -> str:
+    if not isinstance(entries, list):
+        return "indisponivel"
+    total = sum(row["count"] for row in entries)
+    if total == 0:
+        return "indisponivel"
+    parts = []
+    for row in entries[:limit]:
+        pct = row["count"] / total * 100
+        parts.append(f"{row['dimension']} ({pct:.0f}%)")
+    return ", ".join(parts)
+
+
+def build_sync_summary(profile: dict, media: list[dict], account_insights: dict, synced_at: str) -> str:
+    days_28 = account_insights.get("by_period", {}).get("days_28", {})
+    reach = days_28.get("reach", "—")
+    views = days_28.get("views", "—")
+    engaged = days_28.get("accounts_engaged", "—")
+    demo = account_insights.get("demographics", {})
+
+    media_reach = sum(item.get("insights", {}).get("reach", 0) for item in media)
+    media_avg = round(media_reach / len(media)) if media else 0
+
+    lines = [
+        f"Sincronizado em: {synced_at}",
+        f"@{profile.get('username')} ({profile.get('name', '')})",
+        f"Seguidores: {profile.get('followers_count')}",
+        f"Posts totais: {profile.get('media_count')}",
+        f"Midia no catalogo: {len(media)} (ordenada por sucesso — curtidas)",
+        f"Bio: {profile.get('biography', '')}",
+        "",
+        "=== INSIGHTS CONTA (28 dias via API) ===",
+        f"Alcance (contas unicas): {reach}",
+        f"Visualizacoes: {views}",
+        f"Contas com engajamento: {engaged}",
+        f"Media alcance/post (ultimos {len(media)}): {media_avg}",
+        "",
+        "=== DEMOGRAFIA SEGUIDORES ===",
+        f"Idade (top): {_format_demographic_top(demo.get('age', {}))}",
+        f"Genero: {_format_demographic_top(demo.get('gender', {}))}",
+        f"Cidades (top): {_format_demographic_top(demo.get('city', {}))}",
+        f"Paises (top): {_format_demographic_top(demo.get('country', {}))}",
+        "",
+        "Nota: alcance 28d reflete dados desde a conexao OAuth do app Meta.",
+        "",
+        "Arquivo completo: profile_snapshot.json",
+    ]
+    return "\n".join(lines)
+
+
+def run_sync(media_limit: int = 250) -> None:
     cfg = load_config()
     token = cfg["access_token"]
     ig_user_id = cfg["ig_user_id"]
@@ -335,20 +483,48 @@ def run_sync() -> None:
     profile = fetch_profile(token, ig_user_id)
     print(f"  Perfil: @{profile.get('username')} — {profile.get('followers_count')} seguidores")
 
-    media = fetch_media(token, ig_user_id, limit=30)
-    print(f"  Posts: {len(media)} recentes")
+    media = fetch_media(token, ig_user_id, limit=media_limit)
+    print(f"  Posts: {len(media)} no catalogo (limite {media_limit})")
 
-    for i, item in enumerate(media):
-        item["insights"] = fetch_media_insights(token, item["id"], item.get("media_type", "IMAGE"))
+    priority_ids: set[str] = set()
+    config_path = ROOT / "data" / "mediakit" / "config.json"
+    if config_path.exists():
+        try:
+            sys.path.insert(0, str(ROOT / "scripts"))
+            from mediakit_assets import partnership_media_ids
 
-    print("  Insights da conta...")
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            priority_ids = partnership_media_ids(media, config)
+            if priority_ids:
+                print(f"  Parcerias no portfolio: {len(priority_ids)} posts (insights prioritarios)")
+        except Exception as exc:
+            print(f"  Aviso: nao foi possivel carregar parcerias do config ({exc})")
+
+    print("  Insights dos Reels com maior desempenho + parcerias...")
+    enrich_media_insights(token, media, top_n=min(40, len(media)), priority_ids=priority_ids or None)
+    media = sort_media_by_success(media)
+
+    print("  Insights da conta (day / week / 28 dias)...")
     account_insights = fetch_account_insights(token, ig_user_id)
+    days_28 = account_insights.get("by_period", {}).get("days_28", {})
+    print(f"    Alcance 28d: {days_28.get('reach', '—')} | Views: {days_28.get('views', '—')}")
+
+    print("  Demografia dos seguidores...")
+    demo = account_insights.get("demographics", {})
+    print(f"    Genero: {_format_demographic_top(demo.get('gender', {}))}")
+    print(f"    Idade: {_format_demographic_top(demo.get('age', {}))}")
 
     snapshot = {
         "synced_at": synced_at,
         "profile": profile,
         "account_insights": account_insights,
         "media": media,
+        "media_sync": {
+            "limit": media_limit,
+            "fetched": len(media),
+            "sorted_by": "success",
+            "success_order": "likes, views, reach, comments",
+        },
     }
 
     out_path = SYNC_DIR / "profile_snapshot.json"
@@ -356,18 +532,7 @@ def run_sync() -> None:
 
     summary_path = SYNC_DIR / "resumo.txt"
     summary_path.write_text(
-        "\n".join(
-            [
-                f"Sincronizado em: {synced_at}",
-                f"@{profile.get('username')} ({profile.get('name', '')})",
-                f"Seguidores: {profile.get('followers_count')}",
-                f"Posts totais: {profile.get('media_count')}",
-                f"Midia recente sincronizada: {len(media)}",
-                f"Bio: {profile.get('biography', '')}",
-                "",
-                f"Arquivo completo: {out_path.name}",
-            ]
-        ),
+        build_sync_summary(profile, media, account_insights, synced_at),
         encoding="utf-8",
     )
 
@@ -379,6 +544,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Sync Instagram via Instagram Login API")
     parser.add_argument("command", choices=["auth", "sync", "exchange"], help="auth | sync | exchange URL com code")
     parser.add_argument("code_or_url", nargs="?", help="URL ou code (comando exchange)")
+    parser.add_argument(
+        "--media-limit",
+        type=int,
+        default=900,
+        help="Quantos posts buscar no sync (padrao 900, catalogo completo)",
+    )
     args = parser.parse_args()
 
     if args.command == "auth":
@@ -389,7 +560,7 @@ def main() -> None:
             sys.exit(1)
         run_exchange(args.code_or_url)
     else:
-        run_sync()
+        run_sync(media_limit=args.media_limit)
 
 
 if __name__ == "__main__":

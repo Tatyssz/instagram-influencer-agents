@@ -22,10 +22,11 @@ Creators precisam de **dados reais** (posts, insights, engajamento) e um **perfi
 
 | Camada | O que faz |
 |--------|-----------|
-| **Meta API** | OAuth + sync de perfil, 30 posts recentes, insights |
+| **Meta API** | OAuth + sync de perfil, posts, insights + demografia |
 | **Análise** | Diagnóstico comercial (pilares, horários, top posts) |
 | **Profile workflow** | Edição item a item com aprovação + validação |
 | **Playwright** | Aplica mudanças no instagram.com quando a API não permite |
+| **Media Kit** | Portfólio web luxe + PDF com parcerias curadas |
 
 **Case study:** conta Creator beauty/UGC (~32k seguidores, L'Oréal Star, Baixada Santista).
 
@@ -75,7 +76,7 @@ copy .env.example .env
 python scripts/sync_instagram.py auth
 # Se SSL falhar no callback, copie a URL e rode:
 python scripts/sync_instagram.py exchange "URL_COM_CODE"
-python scripts/sync_instagram.py sync
+python scripts/sync_instagram.py sync --media-limit 900
 ```
 
 Dados em `data/sync/profile_snapshot.json`.
@@ -91,6 +92,15 @@ python scripts/update_profile.py apply
 python scripts/update_profile.py verify
 ```
 
+### 6. Media Kit (portfólio para marcas)
+
+```powershell
+python scripts/build_mediakit_metrics.py
+python scripts/build_mediakit_html.py --style luxe --all
+```
+
+Abrir `output/mediakit/portfolio.html`. Curadoria: [`docs/MEDIA-KIT-CURADORIA.md`](docs/MEDIA-KIT-CURADORIA.md)
+
 ---
 
 ## Comandos
@@ -99,7 +109,9 @@ python scripts/update_profile.py verify
 |---------|-----------|
 | `sync_instagram.py auth` | OAuth Instagram |
 | `sync_instagram.py exchange "URL"` | Trocar code por token |
-| `sync_instagram.py sync` | Baixar perfil + posts + insights |
+| `sync_instagram.py sync --media-limit 900` | Catálogo amplo + demografia |
+| `build_mediakit_html.py --style luxe --all` | Portfólio web + PDF |
+| `build_mediakit_metrics.py` | Métricas para o media kit |
 | `update_profile.py login` | Login 1x no Chrome (Playwright) |
 | `update_profile.py status` | Comparar alvo vs perfil atual |
 | `update_profile.py apply` | Aplicar mudanças via browser |

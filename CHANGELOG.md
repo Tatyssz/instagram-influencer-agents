@@ -2,6 +2,23 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/).
 
+## [0.4.0] - 2026-08-14
+
+### Adicionado
+
+- **Media Kit luxe:** `portfolio.html`, `media-kit.html`, export PDF via Playwright
+- Scripts: `build_mediakit_html.py`, `build_mediakit_metrics.py`, `mediakit_assets.py`, `mediakit_luxe.py`, `mediakit_glow.py`, `mediakit_templates.py`, `capture_reel_covers.py`, `import_profile_photo.py`
+- Config editorial: `data/mediakit/config.json` (marcas, categorias, exclusões, overrides)
+- Capas manuais: `data/mediakit/manual-covers/`
+- Sync ampliado: `--media-limit`, insights prioritários para parcerias, demografia da conta
+- Documentação: `docs/MEDIA-KIT-CURADORIA.md` + módulo 5 do curso atualizado
+
+### Alterado
+
+- Portfólio @tatyzacharias: 84 peças curadas (Beleza 29 · Cabelo 16 · Eventos 32 · Perfume 6 · Moda 4)
+- Categorização: cabelo = marcas capilares; curadoria manual via `exclude_media_ids` e `media_categories`
+- `instagram_browser.py`: preenchimento de bio via `#pepBio` + validação do botão Enviar
+
 ## [0.3.0] - 2026-08-11
 
 ### Adicionado

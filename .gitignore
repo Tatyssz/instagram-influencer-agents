@@ -15,3 +15,12 @@ data/profile/instagram_session.json
 data/profile/apply_pendente.txt
 data/profile/history.json
 data/profile/target.json
+
+# Media kit — capas JPG regeneráveis (rodar build_mediakit_html.py)
+output/mediakit/assets/
+data/mediakit/embed-covers/
+data/mediakit/thumb-cache/
+data/mediakit/thumb-fresh/
+data/mediakit/thumb-match/
+data/mediakit/ref-*.jpg
+output/mediakit/media-kit.pdf

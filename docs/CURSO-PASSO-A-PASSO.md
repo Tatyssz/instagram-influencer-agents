@@ -23,6 +23,7 @@
 12. [Estrutura de arquivos do projeto](#12-estrutura-de-arquivos-do-projeto)
 13. [Próximos módulos do curso](#13-próximos-módulos-do-curso)
 14. [Checklist para gravar o curso](#14-checklist-para-gravar-o-curso)
+15. [Fase 7 — Media Kit Luxe (portfólio + curadoria)](#15-fase-7--media-kit-luxe-portfólio--curadoria)
 
 ---
 
@@ -40,7 +41,7 @@ A influenciadora queria **ver tudo do Instagram** (posts, números, audiência, 
 | **Análise no chat** | Diagnóstico + recomendações para marcas | ✅ Feito |
 | **Otimização de bio** | Um item por vez, com aprovação | 🔄 Em andamento |
 | **Automação Playwright** | Edita perfil no browser (API não permite) | 🔄 Em teste |
-| **Media Kit automático** | PDF/página com números reais | ⏳ Próximo módulo |
+| **Media Kit automático** | PDF/página com números reais + portfólio luxe | ✅ Concluído |
 
 ### Resultados já aplicados no perfil @tatyzacharias
 
@@ -607,7 +608,7 @@ instagram-influencer-agents/
 
 | Módulo | Conteúdo | Prioridade |
 |--------|----------|------------|
-| **Media Kit** | PDF/página com números reais + cases UGC | Alta |
+| **Media Kit** | PDF/página + portfólio luxe curado | ✅ Feito |
 | **Item 3–5 da bio** | Linhas 2, 3, 4 + link + CTA parcerias | Alta |
 | **Insights audiência** | Print + cruzar com dados API | Média |
 | **Sync paginado** | Baixar mais que 30 posts | Média |
@@ -648,11 +649,74 @@ instagram-influencer-agents/
 - [ ] `apply` + `verify`
 - [ ] Troubleshooting Playwright (chrome.exe, Enviar desabilitado)
 
-### Módulo 5 — Media Kit (próximo)
+### Módulo 5 — Media Kit ✅ (14/08/2026)
 
-- [ ] Gerar documento com números do sync
-- [ ] Cases UGC + frase comercial
-- [ ] Exportar para PDF / Canva
+- [x] Gerar documento com números do sync
+- [x] Portfólio web luxe com filtro por categoria (84 peças)
+- [x] Parcerias por marca + curadoria manual via prints
+- [x] Exportar HTML + PDF
+- [x] Documentação: [`docs/MEDIA-KIT-CURADORIA.md`](MEDIA-KIT-CURADORIA.md)
+
+---
+
+## 15. Fase 7 — Media Kit Luxe (portfólio + curadoria)
+
+> **Tempo estimado:** 60–90 min (build + curadoria)  
+> **Pré-requisito:** sync com catálogo amplo (`--media-limit 900`)
+
+### O que entregamos
+
+- **`portfolio.html`** — galeria interativa para marcas (filtro Beleza / Cabelo / Eventos / Perfume / Moda)
+- **`media-kit.pdf`** — one-pager com métricas + destaques
+- **`data/mediakit/config.json`** — marcas, exclusões e overrides (fonte de verdade editorial)
+
+### Comandos
+
+```powershell
+.venv\Scripts\python scripts/sync_instagram.py sync --media-limit 900
+.venv\Scripts\python scripts/build_mediakit_metrics.py
+.venv\Scripts\python scripts/build_mediakit_html.py --style luxe --all
+```
+
+Abrir: `output/mediakit/portfolio.html` (Ctrl+F5 após cada rebuild).
+
+### Arquitetura
+
+```
+data/sync/profile_snapshot.json   ← API (posts + insights)
+data/mediakit/config.json         ← marcas, categorias, curadoria
+scripts/mediakit_assets.py        ← seleção + categorização
+scripts/mediakit_luxe.py          ← HTML/CSS luxe
+scripts/build_mediakit_html.py    ← build + PDF
+output/mediakit/portfolio.html    ← entrega para marcas
+```
+
+### Categorias do portfólio @tatyzacharias (14/08/2026)
+
+| Categoria | Peças | Critério |
+|-----------|------:|----------|
+| Cabelo | 16 | Marcas capilares (Salon Line, Haskell, Widi Care, Bello Cachos, etc.) |
+| Beleza | 29 | Makeup, skincare, marcas beauty |
+| Eventos | 32 | Beauty Fair, coberturas, lançamentos |
+| Perfume | 6 | Fragrâncias (Xêrosa, Lua e Neve, Lowell…) |
+| Moda | 4 | CT Trends, Boutique Preta… |
+
+### Curadoria com prints (metodologia do curso)
+
+1. Gerar portfólio → revisar no browser.
+2. Print do reel errado → pedir no Cursor: *“tira de cabelo e coloca em eventos”* ou *“não quero esse”*.
+3. Agente edita `config.json`:
+   - **`media_categories`** — mover peça entre categorias
+   - **`exclude_media_ids`** — remover do portfólio
+4. Rebuild + Ctrl+F5.
+
+Detalhes e IDs: [`docs/MEDIA-KIT-CURADORIA.md`](MEDIA-KIT-CURADORIA.md)
+
+### Lições para gravar
+
+- Cabelo profissional ≠ todo post com cachos — só **parcerias capilares**
+- Overrides manuais são normais (ex.: Xêrosa → Perfume, Salon Line Na Pele → Beleza)
+- Capa pode estar em outro `media_id` — validar JPG em `output/mediakit/assets/`
 
 ---
 
@@ -690,8 +754,9 @@ Monte meu Media Kit com os dados de data/sync/profile_snapshot.json.
 | 11/08/2026 | Item 2 bio: linha 1 → diversidade + marcas ✅ |
 | 11/08/2026 | Automação Playwright implementada |
 | 11/08/2026 | Regra: aprovar antes de aplicar + limite 150 chars |
+| 14/08/2026 | Media Kit luxe: 84 peças, curadoria por prints ✅ |
+| 14/08/2026 | Categorias: Cabelo (marcas), overrides manuais, exclusões |
 | Pendente | Item 3 bio: linha 2 (opção A/B/C/D) |
-| Pendente | Media Kit automático |
 
 ---
 

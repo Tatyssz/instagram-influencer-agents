@@ -170,19 +170,49 @@ def _ensure_logged_in(page) -> None:
     _goto_edit_page(page)
 
 
+def _fill_bio(page, value: str) -> None:
+    locator = _find_locator(page, FIELD_SELECTORS["biography"])
+    page.evaluate(
+        """(bio) => {
+            const el = document.querySelector('#pepBio');
+            if (!el) throw new Error('textarea #pepBio nao encontrado');
+            const setter = Object.getOwnPropertyDescriptor(
+                window.HTMLTextAreaElement.prototype, 'value'
+            ).set;
+            setter.call(el, bio);
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+            el.focus();
+            el.blur();
+        }""",
+        value,
+    )
+    page.wait_for_timeout(800)
+    current = locator.input_value()
+    if current.strip() != value.strip():
+        locator.click()
+        locator.press("Control+a")
+        page.keyboard.type(value, delay=12)
+        page.wait_for_timeout(800)
+
+
 def _fill_field(page, field: str, value: str) -> None:
+    if field == "biography":
+        _fill_bio(page, value)
+        return
     locator = _find_locator(page, FIELD_SELECTORS[field])
     locator.click()
     locator.press("Control+a")
     locator.press("Backspace")
-    if field == "biography":
-        # Instagram so habilita "Enviar" com eventos reais de input (React).
-        locator.press_sequentially(value, delay=5)
-    else:
-        locator.fill(value)
-        locator.press(" ")
-        locator.press("Backspace")
+    locator.fill(value)
+    locator.press(" ")
+    locator.press("Backspace")
     page.wait_for_timeout(600)
+
+
+def _submit_button_enabled(btn) -> bool:
+    disabled = btn.get_attribute("aria-disabled")
+    return disabled is None or disabled == "false"
 
 
 def _wait_submit_enabled(page, timeout_ms: int = 15000):
@@ -190,7 +220,7 @@ def _wait_submit_enabled(page, timeout_ms: int = 15000):
     while time.time() < deadline:
         btn = page.locator('div[role="button"]').filter(has_text="Enviar").first
         try:
-            if btn.is_visible(timeout=500) and btn.get_attribute("aria-disabled") == "false":
+            if btn.is_visible(timeout=500) and _submit_button_enabled(btn):
                 return btn
         except Exception:
             pass
