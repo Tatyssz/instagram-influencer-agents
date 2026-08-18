@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import html as H
+from datetime import datetime
 
 
 def build_glow(metrics: dict, config: dict, assets: dict, period: str, fmt_num) -> str:
@@ -10,6 +11,10 @@ def build_glow(metrics: dict, config: dict, assets: dict, period: str, fmt_num) 
     profile = metrics.get("profile", {})
     username = profile.get("username", "tatyzacharias")
     name = profile.get("name", "Taty Zacharias").split("|")[0].strip()
+    display_name = (config.get("display_name") or name).strip()
+    name_parts = display_name.split()
+    first = name_parts[0] if name_parts else "Tatiana"
+    rest = " ".join(name_parts[1:]) if len(name_parts) > 1 else "Zacharias"
     contact = config.get("contact", {})
 
     profile_img = assets.get("hero_data_uri") or assets.get("profile_data_uri") or ""
@@ -25,7 +30,7 @@ def build_glow(metrics: dict, config: dict, assets: dict, period: str, fmt_num) 
         (fmt_num(mk.get("interactions_30d_official", 0)), "Interações", "30d"),
         (f"{mk.get('interaction_rate_on_views_pct', 16.5)}%", "Engajamento", "views"),
         (fmt_num(mk.get("median_views_per_reel", mk.get("avg_views_per_reel", 0))), "Views", "med./Reel"),
-        (f"{mk.get('views_non_followers_pct_90d', 0)}%", "Descoberta", "90d"),
+        (f"{mk.get('views_non_followers_pct_90d', 0)}%", "Novos públicos", "90d"),
     ]
     metrics_html = "".join(
         f"""<div class="metric">
@@ -58,18 +63,16 @@ def build_glow(metrics: dict, config: dict, assets: dict, period: str, fmt_num) 
         uri = reel.get("data_uri", "")
         img = f'<img src="{H.escape(uri)}" alt="" />' if uri else ""
         brand = reel.get("brand", "Beauty")
-        views = reel.get("views", 0)
         reel_cards += f"""
         <article class="reel-card">
           <div class="reel-img">{img}<span class="reel-brand">{H.escape(brand)}</span></div>
-          <p class="reel-meta">{fmt_num(views)} visualizações</p>
         </article>"""
 
     brand_pills = "".join(
         f'<span>{H.escape(b["name"])}</span>' for b in config.get("brands", [])
     )
 
-    cases = config.get("cases", [])[:3]
+    cases = assets.get("cases") or config.get("cases", [])
     cases_html = "".join(
         f"""<article class="case-card">
           <span class="case-brand">{H.escape(c.get("brand", ""))}</span>
@@ -79,6 +82,11 @@ def build_glow(metrics: dict, config: dict, assets: dict, period: str, fmt_num) 
         </article>"""
         for c in cases
     )
+    if not cases_html:
+        cases_html = (
+            '<p class="cases-empty">Parcerias com marcas de hair &amp; beauty — '
+            "Reels patrocinados e UGC para campanhas.</p>"
+        )
 
     services = config.get("services", [])
     svc_html = "".join(
@@ -94,11 +102,17 @@ def build_glow(metrics: dict, config: dict, assets: dict, period: str, fmt_num) 
     value_props = config.get("value_props", [])
     props_html = "".join(f"<li>{H.escape(p)}</li>" for p in value_props[:3])
 
+    pdf_rev = datetime.now().strftime("%d/%m/%Y")
+
+    email = (contact.get("email") or "").strip()
+    email_html = f'<strong class="cta-email">{H.escape(email)}</strong>'
+    contact_tag = H.escape(contact.get("cta", "Parcerias via e-mail"))
+
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
-<title>Media Kit — {H.escape(name)}</title>
+<title>Media Kit — {H.escape(display_name)}</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root {{
@@ -262,7 +276,6 @@ html,body {{
   background:linear-gradient(transparent, rgba(74,64,56,.9));
   color:var(--text);
 }}
-.reel-meta {{ font-size:5pt; color:var(--dim); margin-top:1.2mm; }}
 
 .panel {{
   background:var(--surface); border:1px solid var(--line);
@@ -309,8 +322,8 @@ html,body {{
   border-top:1px solid var(--line);
   padding-top:3.5mm; margin-top:auto;
   display:grid;
-  grid-template-columns:1.15fr 1fr 26mm;
-  gap:4mm;
+  grid-template-columns:1.15fr 1fr;
+  gap:3mm 4mm;
 }}
 .brands-pills {{
   display:flex; flex-wrap:wrap; gap:1.2mm; margin-top:1.5mm;
@@ -322,24 +335,30 @@ html,body {{
 }}
 
 .cases {{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:2mm; margin-top:1.5mm;
+  display:flex; justify-content:space-between; align-items:stretch;
+  gap:1.6mm; width:100%; margin-top:1.5mm;
 }}
 .case-card {{
+  flex:1 1 0; min-width:0;
   background:var(--surface); border:1px solid var(--line);
-  border-radius:2mm; padding:2.5mm;
+  border-radius:2mm; padding:2mm 1.6mm;
   border-top:2px solid var(--peach);
 }}
+.foot-cases {{ grid-column:1 / -1; }}
 .case-brand {{
-  font-size:5pt; font-weight:700; letter-spacing:.08em;
+  font-size:4.8pt; font-weight:700; letter-spacing:.08em;
   text-transform:uppercase; color:var(--mauve);
 }}
 .case-card h4 {{
   font-family:"Cormorant Garamond",serif;
-  font-size:9pt; font-weight:600; line-height:1.15;
-  margin:.8mm 0;
+  font-size:7pt; font-weight:600; line-height:1.18;
+  margin:.6mm 0;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
+  overflow:hidden;
 }}
-.case-card p {{ font-size:6pt; font-weight:600; color:var(--soft); }}
-.case-card small {{ font-size:5pt; color:var(--dim); display:block; margin-top:.5mm; }}
+.case-card p {{ font-size:5.5pt; font-weight:600; color:var(--soft); }}
+.case-card small {{ font-size:4.8pt; color:var(--dim); display:block; margin-top:.4mm; }}
+.cases-empty {{ font-size:6pt; color:var(--dim); line-height:1.45; margin-top:1.5mm; }}
 
 .services ul {{ list-style:none; margin-top:1.5mm; display:grid; gap:1.5mm; }}
 .services li {{
@@ -349,19 +368,27 @@ html,body {{
 .svc-n {{ display:block; font-size:6.5pt; font-weight:600; }}
 .svc-d {{ display:block; font-size:5.5pt; color:var(--dim); margin-top:.3mm; }}
 
-.cta {{
+.contact-bar {{
+  grid-column:1 / -1;
+  display:flex; flex-direction:row; align-items:center; justify-content:space-between;
+  gap:3mm; padding:2.4mm 3.2mm;
   background:linear-gradient(160deg, rgba(232,160,168,.18), rgba(232,149,111,.12));
   border:1px solid rgba(232,160,168,.28);
-  border-radius:3mm; padding:3mm;
-  display:flex; flex-direction:column; justify-content:center;
-  text-align:center; height:100%;
+  border-radius:3mm;
 }}
-.cta em {{
+.contact-tag {{
   font-family:"Cormorant Garamond",serif;
-  font-style:italic; font-size:11pt; color:var(--blush);
+  font-style:italic; font-size:9pt; color:var(--blush);
+  white-space:nowrap; flex-shrink:0;
 }}
-.cta strong {{ font-size:7pt; font-weight:700; margin-top:1.5mm; display:block; }}
-.cta small {{ font-size:5pt; color:var(--dim); margin-top:2mm; line-height:1.4; display:block; }}
+.contact-bar .cta-email {{
+  font-size:6pt; font-weight:700; flex:1; text-align:center;
+  line-height:1.2; word-break:break-all;
+}}
+.contact-note {{
+  font-size:5pt; color:var(--dim); line-height:1.3;
+  white-space:nowrap; flex-shrink:0; text-align:right;
+}}
 
 .footer {{
   grid-column:1/-1; text-align:center;
@@ -384,7 +411,7 @@ html,body {{
     <section class="hero">
       <div class="photo-wrap">{photo}</div>
       <div class="intro">
-        <h1>Taty <em>Zacharias</em></h1>
+        <h1>{H.escape(first)} <em>{H.escape(rest)}</em></h1>
         <p class="about">{H.escape(about)}</p>
         <p class="handle">instagram.com/{H.escape(username)}</p>
         <ul class="value-list">{props_html}</ul>
@@ -405,20 +432,21 @@ html,body {{
           <div>
             <h2>Marcas & parcerias</h2>
             <div class="brands-pills">{brand_pills}</div>
-            <div style="height:3mm"></div>
-            <h2>Cases em destaque</h2>
-            <div class="cases">{cases_html}</div>
           </div>
           <div class="services">
             <h2>Formatos</h2>
             <ul>{svc_html}</ul>
           </div>
-          <div class="cta">
-            <em>{H.escape(contact.get("cta", "Parcerias via DM"))}</em>
-            <strong>@{H.escape(contact.get("instagram", username))}</strong>
-            <small>{H.escape(config.get("pricing_note", ""))}</small>
+          <div class="foot-cases">
+            <h2>Cases em destaque</h2>
+            <div class="cases">{cases_html}</div>
           </div>
-          <p class="footer">013 glow · métricas oficiais {H.escape(period)}</p>
+          <div class="contact-bar">
+            <span class="contact-tag">{contact_tag}</span>
+            {email_html}
+            <span class="contact-note">{H.escape(config.get("pricing_note", ""))}</span>
+          </div>
+          <p class="footer">013 glow · métricas oficiais {H.escape(period)} · atualizado {H.escape(pdf_rev)}</p>
         </div>
       </div>
 

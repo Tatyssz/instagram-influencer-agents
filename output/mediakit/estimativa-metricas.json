@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-08-13T21:30:39.987826+00:00",
+  "generated_at": "2026-08-17T20:18:59.338651+00:00",
   "profile": {
     "username": "tatyzacharias",
     "name": "Taty Zacharias | UGC Beauty & Hair",
-    "followers": 32620,
+    "followers": 32517,
     "posts_total": 835,
     "bio": "Histórias reais de beleza & cabelo para marcas que valorizam diversidade 🌟\nParcerias via DM 💌\n#lorealistarbr \n📍013 Baixada Santista #sl"
   },
   "official_api_partial": {
-    "reach_28d_unique": 1442,
-    "views_28d": 1649,
-    "accounts_engaged_28d": 11,
+    "reach_28d_unique": 73,
+    "views_28d": 90,
+    "accounts_engaged_28d": 12,
     "note": "API acumula desde conexao OAuth (~11/08/2026). Substituir por print do app quando disponivel."
   },
   "app_insights_placeholder": {
@@ -20,29 +20,34 @@
     "content_shared_30d": 31,
     "interaction_rate_on_views_pct": 16.5,
     "visualizadores_90d": 9608,
-    "views_90d": 20756
+    "views_90d": 22262,
+    "interactions_90d_official": 2084,
+    "interaction_rate_90d_on_views_pct": 9.4,
+    "interactions_reels_90d": 1558,
+    "views_reels_90d": 10842,
+    "interaction_rate_reels_90d_on_views_pct": 14.4
   },
   "demographics": {
     "age_top": [
       {
         "label": "25-34",
-        "count": 7960,
-        "percent": 31.3
+        "count": 7908,
+        "percent": 31.2
       },
       {
         "label": "35-44",
-        "count": 7214,
+        "count": 7174,
         "percent": 28.3
       },
       {
         "label": "18-24",
-        "count": 4207,
-        "percent": 16.5
+        "count": 4210,
+        "percent": 16.6
       },
       {
         "label": "45-54",
-        "count": 4135,
-        "percent": 16.2
+        "count": 4138,
+        "percent": 16.3
       },
       {
         "label": "55-64",
@@ -53,71 +58,71 @@
     "gender": [
       {
         "label": "U",
-        "count": 15209,
-        "percent": 59.8
+        "count": 15199,
+        "percent": 59.9
       },
       {
         "label": "F",
-        "count": 7720,
-        "percent": 30.3
+        "count": 7659,
+        "percent": 30.2
       },
       {
         "label": "M",
-        "count": 2520,
+        "count": 2500,
         "percent": 9.9
       }
     ],
     "cities_brazil_focus": [
       {
         "label": "São Paulo, São Paulo (state)",
-        "count": 1462,
+        "count": 1456,
         "percent": 15.7
       },
       {
         "label": "Rio de Janeiro, Rio de Janeiro (state)",
-        "count": 517,
-        "percent": 5.5
+        "count": 518,
+        "percent": 5.6
       },
       {
         "label": "São Vicente, São Paulo (state)",
-        "count": 196,
+        "count": 195,
         "percent": 2.1
       },
       {
         "label": "Santos, São Paulo (state)",
-        "count": 135,
-        "percent": 1.4
+        "count": 139,
+        "percent": 1.5
       },
       {
         "label": "Amargosa, Bahia",
         "count": 135,
-        "percent": 1.4
+        "percent": 1.5
       }
     ],
     "countries_top": [
       {
         "label": "BR",
-        "count": 10784,
-        "percent": 43.8
+        "count": 10758,
+        "percent": 43.9
       },
       {
         "label": "TR",
-        "count": 3997,
-        "percent": 16.2
+        "count": 3935,
+        "percent": 16.1
       },
       {
         "label": "IN",
-        "count": 2895,
+        "count": 2896,
         "percent": 11.8
       },
       {
         "label": "US",
-        "count": 1746,
+        "count": 1745,
         "percent": 7.1
       },
       {
         "label": "ID",
-        "count": 951,
+        "count": 950,
         "percent": 3.9
       }
     ],
@@ -183,50 +188,50 @@
     }
   },
   "reels_beauty_with_insights": {
-    "count": 64,
-    "reach_median": 309,
-    "views_median": 1307,
+    "count": 80,
+    "reach_median": 460,
+    "views_median": 1504,
     "best_reach": 5925,
     "best_views": 22290,
     "best_reel": {
       "date": "2025-04-17",
       "reach": 5925,
-      "views": 9894,
+      "views": 9895,
       "likes": 217,
       "permalink": "https://www.instagram.com/reel/DIj-SWJvZeC/",
       "caption": "✨ Pele preta já brilha por natureza.\nMas com o Gel Hidratante Iluminador … ela s"
     }
   },
   "reels_sample_last_30_posts": {
-    "count": 833,
-    "reach_sum": 136723,
-    "reach_avg": 1290,
-    "reach_median": 296,
-    "reach_min": 0,
+    "count": 500,
+    "reach_sum": 159331,
+    "reach_avg": 1385,
+    "reach_median": 410,
+    "reach_min": 8,
     "reach_max": 77458,
-    "views_sum": 362520,
-    "views_avg": 3420,
-    "shares_sum": 5816,
-    "shares_avg": 55,
-    "saves_sum": 275,
-    "likes_sum": 65098,
-    "comments_sum": 6521,
-    "engagement_rate_followers_pct": 0.26,
-    "engagement_rate_reach_pct": 541.09,
+    "views_sum": 378992,
+    "views_avg": 3296,
+    "shares_sum": 10662,
+    "shares_avg": 93,
+    "saves_sum": 358,
+    "likes_sum": 53691,
+    "comments_sum": 5866,
+    "engagement_rate_followers_pct": 0.37,
+    "engagement_rate_reach_pct": 492.13,
     "top_by_reach": [
       {
         "date": "2025-09-22",
         "reach": 77458,
-        "views": 90888,
+        "views": 90925,
         "shares": 72,
-        "likes": 641,
+        "likes": 642,
         "permalink": "https://www.instagram.com/reel/DO6QB6JDae7/",
         "caption": "#rip ✝️\n\n#reels #virginia #humor #samba #viralreals #sambando #rainhadebateria #"
       },
       {
         "date": "2025-04-17",
         "reach": 5925,
-        "views": 9894,
+        "views": 9895,
         "shares": 15,
         "likes": 217,
         "permalink": "https://www.instagram.com/reel/DIj-SWJvZeC/",
@@ -243,10 +248,10 @@
       },
       {
         "date": "2025-06-25",
-        "reach": 3045,
-        "views": 6877,
+        "reach": 3050,
+        "views": 6884,
         "shares": 14,
-        "likes": 776,
+        "likes": 774,
         "permalink": "https://www.instagram.com/reel/DLVo1krvFVg/",
         "caption": "🔥💃 Uma noite de Flash Back com clima de ARRAIÁ? SIM, nós tivemos!\nO Clube Beira "
       },
@@ -264,52 +269,52 @@
   "reels_by_period": {
     "last_30_days": {
       "count": 4,
-      "reach_sum": 1013,
-      "reach_avg": 253,
-      "reach_median": 163,
-      "reach_min": 150,
-      "reach_max": 537,
-      "views_sum": 1346,
-      "views_avg": 336,
-      "shares_sum": 1,
+      "reach_sum": 1300,
+      "reach_avg": 325,
+      "reach_median": 292,
+      "reach_min": 156,
+      "reach_max": 561,
+      "views_sum": 1705,
+      "views_avg": 426,
+      "shares_sum": 2,
       "shares_avg": 0,
-      "saves_sum": 1,
-      "likes_sum": 434,
-      "comments_sum": 24,
-      "engagement_rate_followers_pct": 0.35,
-      "engagement_rate_reach_pct": 26.67,
+      "saves_sum": 5,
+      "likes_sum": 442,
+      "comments_sum": 35,
+      "engagement_rate_followers_pct": 0.37,
+      "engagement_rate_reach_pct": 25.61,
       "top_by_reach": [
         {
           "date": "2026-08-01",
-          "reach": 537,
-          "views": 742,
-          "shares": 1,
-          "likes": 396,
+          "reach": 561,
+          "views": 781,
+          "shares": 2,
+          "likes": 398,
           "permalink": "https://www.instagram.com/reel/DbgLoTQgi5E/",
           "caption": "A combinação perfeita existe. ✨💜\nO contorno define, o batom ilumina e o resultad"
         },
         {
+          "date": "2026-08-13",
+          "reach": 415,
+          "views": 520,
+          "shares": 0,
+          "likes": 15,
+          "permalink": "https://www.instagram.com/reel/Db_M24wgOaA/",
+          "caption": "✨ Aquele toque de cor que transforma a make! 💕\n\nO blush da KV Makeup entrega aqu"
+        },
+        {
           "date": "2026-08-04",
-          "reach": 164,
-          "views": 197,
+          "reach": 168,
+          "views": 200,
           "shares": 0,
           "likes": 13,
           "permalink": "https://www.instagram.com/reel/DbofL8hAN8v/",
           "caption": "Meus top favoritos @hidramais 😍\nAdivinha quem será presença confirmada na @beaut"
         },
         {
-          "date": "2026-08-13",
-          "reach": 162,
-          "views": 209,
-          "shares": 0,
-          "likes": 9,
-          "permalink": "https://www.instagram.com/reel/Db_M24wgOaA/",
-          "caption": "✨ Aquele toque de cor que transforma a make! 💕\n\nO blush da KV Makeup entrega aqu"
-        },
-        {
           "date": "2026-08-06",
-          "reach": 150,
-          "views": 198,
+          "reach": 156,
+          "views": 204,
           "shares": 0,
           "likes": 16,
           "permalink": "https://www.instagram.com/reel/Dbs_55ygRlf/",
@@ -318,160 +323,160 @@
       ]
     },
     "last_60_days": {
-      "count": 7,
-      "reach_sum": 1013,
-      "reach_avg": 203,
-      "reach_median": 162,
-      "reach_min": 0,
-      "reach_max": 537,
-      "views_sum": 1753,
-      "views_avg": 351,
-      "shares_sum": 1,
+      "count": 6,
+      "reach_sum": 1519,
+      "reach_avg": 304,
+      "reach_median": 219,
+      "reach_min": 156,
+      "reach_max": 561,
+      "views_sum": 2012,
+      "views_avg": 402,
+      "shares_sum": 2,
       "shares_avg": 0,
-      "saves_sum": 1,
-      "likes_sum": 591,
-      "comments_sum": 47,
-      "engagement_rate_followers_pct": 0.28,
-      "engagement_rate_reach_pct": 26.67,
+      "saves_sum": 5,
+      "likes_sum": 485,
+      "comments_sum": 42,
+      "engagement_rate_followers_pct": 0.27,
+      "engagement_rate_reach_pct": 22.96,
       "top_by_reach": [
         {
           "date": "2026-08-01",
-          "reach": 537,
-          "views": 742,
-          "shares": 1,
-          "likes": 396,
+          "reach": 561,
+          "views": 781,
+          "shares": 2,
+          "likes": 398,
           "permalink": "https://www.instagram.com/reel/DbgLoTQgi5E/",
           "caption": "A combinação perfeita existe. ✨💜\nO contorno define, o batom ilumina e o resultad"
         },
         {
+          "date": "2026-08-13",
+          "reach": 415,
+          "views": 520,
+          "shares": 0,
+          "likes": 15,
+          "permalink": "https://www.instagram.com/reel/Db_M24wgOaA/",
+          "caption": "✨ Aquele toque de cor que transforma a make! 💕\n\nO blush da KV Makeup entrega aqu"
+        },
+        {
+          "date": "2026-06-25",
+          "reach": 219,
+          "views": 307,
+          "shares": 0,
+          "likes": 22,
+          "permalink": "https://www.instagram.com/reel/DaBknYYANGG/",
+          "caption": "Hoje é dia de levantar a autoestima desse feed ✨\nNão serão falas racistas que vã"
+        },
+        {
           "date": "2026-08-04",
-          "reach": 164,
-          "views": 197,
+          "reach": 168,
+          "views": 200,
           "shares": 0,
           "likes": 13,
           "permalink": "https://www.instagram.com/reel/DbofL8hAN8v/",
           "caption": "Meus top favoritos @hidramais 😍\nAdivinha quem será presença confirmada na @beaut"
         },
         {
-          "date": "2026-08-13",
-          "reach": 162,
-          "views": 209,
-          "shares": 0,
-          "likes": 9,
-          "permalink": "https://www.instagram.com/reel/Db_M24wgOaA/",
-          "caption": "✨ Aquele toque de cor que transforma a make! 💕\n\nO blush da KV Makeup entrega aqu"
-        },
-        {
           "date": "2026-08-06",
-          "reach": 150,
-          "views": 198,
+          "reach": 156,
+          "views": 204,
           "shares": 0,
           "likes": 16,
           "permalink": "https://www.instagram.com/reel/Dbs_55ygRlf/",
           "caption": "Será que o lançamento da @haskelloficial em parceria com @distribuidora.maninho "
-        },
-        {
-          "date": "2026-06-15",
-          "reach": 0,
-          "views": 0,
-          "shares": 0,
-          "likes": 114,
-          "permalink": "https://www.instagram.com/reel/DZl6NjBtY-l/",
-          "caption": "SENTA QUE LÁ VEM TEXTÃO!!!\nHoje meu coração transborda de amor e gratidão. ❤️\n\nC"
         }
       ]
     },
     "last_90_days": {
       "count": 9,
-      "reach_sum": 1013,
-      "reach_avg": 203,
-      "reach_median": 162,
-      "reach_min": 0,
-      "reach_max": 537,
-      "views_sum": 1753,
-      "views_avg": 351,
-      "shares_sum": 1,
+      "reach_sum": 1519,
+      "reach_avg": 304,
+      "reach_median": 219,
+      "reach_min": 156,
+      "reach_max": 561,
+      "views_sum": 2012,
+      "views_avg": 402,
+      "shares_sum": 2,
       "shares_avg": 0,
-      "saves_sum": 1,
-      "likes_sum": 700,
-      "comments_sum": 57,
-      "engagement_rate_followers_pct": 0.26,
-      "engagement_rate_reach_pct": 26.67,
+      "saves_sum": 5,
+      "likes_sum": 708,
+      "comments_sum": 68,
+      "engagement_rate_followers_pct": 0.27,
+      "engagement_rate_reach_pct": 22.96,
       "top_by_reach": [
         {
           "date": "2026-08-01",
-          "reach": 537,
-          "views": 742,
-          "shares": 1,
-          "likes": 396,
+          "reach": 561,
+          "views": 781,
+          "shares": 2,
+          "likes": 398,
           "permalink": "https://www.instagram.com/reel/DbgLoTQgi5E/",
           "caption": "A combinação perfeita existe. ✨💜\nO contorno define, o batom ilumina e o resultad"
         },
         {
+          "date": "2026-08-13",
+          "reach": 415,
+          "views": 520,
+          "shares": 0,
+          "likes": 15,
+          "permalink": "https://www.instagram.com/reel/Db_M24wgOaA/",
+          "caption": "✨ Aquele toque de cor que transforma a make! 💕\n\nO blush da KV Makeup entrega aqu"
+        },
+        {
+          "date": "2026-06-25",
+          "reach": 219,
+          "views": 307,
+          "shares": 0,
+          "likes": 22,
+          "permalink": "https://www.instagram.com/reel/DaBknYYANGG/",
+          "caption": "Hoje é dia de levantar a autoestima desse feed ✨\nNão serão falas racistas que vã"
+        },
+        {
           "date": "2026-08-04",
-          "reach": 164,
-          "views": 197,
+          "reach": 168,
+          "views": 200,
           "shares": 0,
           "likes": 13,
           "permalink": "https://www.instagram.com/reel/DbofL8hAN8v/",
           "caption": "Meus top favoritos @hidramais 😍\nAdivinha quem será presença confirmada na @beaut"
         },
         {
-          "date": "2026-08-13",
-          "reach": 162,
-          "views": 209,
-          "shares": 0,
-          "likes": 9,
-          "permalink": "https://www.instagram.com/reel/Db_M24wgOaA/",
-          "caption": "✨ Aquele toque de cor que transforma a make! 💕\n\nO blush da KV Makeup entrega aqu"
-        },
-        {
           "date": "2026-08-06",
-          "reach": 150,
-          "views": 198,
+          "reach": 156,
+          "views": 204,
           "shares": 0,
           "likes": 16,
           "permalink": "https://www.instagram.com/reel/Dbs_55ygRlf/",
           "caption": "Será que o lançamento da @haskelloficial em parceria com @distribuidora.maninho "
-        },
-        {
-          "date": "2026-06-15",
-          "reach": 0,
-          "views": 0,
-          "shares": 0,
-          "likes": 114,
-          "permalink": "https://www.instagram.com/reel/DZl6NjBtY-l/",
-          "caption": "SENTA QUE LÁ VEM TEXTÃO!!!\nHoje meu coração transborda de amor e gratidão. ❤️\n\nC"
         }
       ]
     }
   },
   "monthly_estimate": {
     "method": "media_alcance_por_reel x posts_publicados_por_mes (amostra ultimos 30 Reels)",
-    "posts_per_month_estimated": 6.2,
-    "reach_unique_estimated_low": 1013,
-    "reach_unique_estimated_heuristic": 1830,
-    "views_estimated_heuristic": 9527,
+    "posts_per_month_estimated": 5.4,
+    "reach_unique_estimated_low": 1300,
+    "reach_unique_estimated_heuristic": 2196,
+    "views_estimated_heuristic": 8317,
     "disclaimer": "Soma de alcance por post SUPerestima contas unicas (mesma pessoa em varios Reels). Heuristica (media x frequencia) e aproximacao. Numero oficial vem do print Insights 30d."
   },
   "media_kit_highlights": {
-    "followers": 32620,
-    "avg_reach_per_reel": 309,
-    "median_reach_per_reel": 309,
-    "mean_reach_per_reel": 1290,
+    "followers": 32517,
+    "avg_reach_per_reel": 460,
+    "median_reach_per_reel": 460,
+    "mean_reach_per_reel": 1385,
     "best_reach_per_reel": 5925,
-    "avg_views_per_reel": 1307,
-    "median_views_per_reel": 1307,
-    "mean_views_per_reel": 3420,
+    "avg_views_per_reel": 1504,
+    "median_views_per_reel": 1504,
+    "mean_views_per_reel": 3296,
     "best_views_per_reel": 22290,
-    "reels_measured_count": 64,
-    "avg_shares_per_reel": 55,
-    "engagement_by_followers_pct": 0.9,
-    "engagement_by_reach_pct": 541.09,
+    "reels_measured_count": 80,
+    "avg_shares_per_reel": 93,
+    "engagement_by_followers_pct": 0.88,
+    "engagement_by_reach_pct": 492.13,
     "top_reach_reel": {
       "date": "2025-04-17",
       "reach": 5925,
-      "views": 9894,
+      "views": 9895,
       "likes": 217,
       "permalink": "https://www.instagram.com/reel/DIj-SWJvZeC/",
       "caption": "✨ Pele preta já brilha por natureza.\nMas com o Gel Hidratante Iluminador … ela s"
@@ -479,7 +484,7 @@
     "top_views_reel": {
       "date": "2025-04-17",
       "reach": 5925,
-      "views": 9894,
+      "views": 9895,
       "likes": 217,
       "permalink": "https://www.instagram.com/reel/DIj-SWJvZeC/",
       "caption": "✨ Pele preta já brilha por natureza.\nMas com o Gel Hidratante Iluminador … ela s"
@@ -489,12 +494,18 @@
     "core_age_25_44_pct": 57.1,
     "views_30d_official": 8500,
     "interactions_30d_official": 1400,
+    "views_90d_official": 22262,
+    "interactions_90d_official": 2084,
+    "interaction_rate_90d_on_views_pct": 9.4,
+    "interactions_reels_90d": 1558,
+    "views_reels_90d": 10842,
+    "interaction_rate_reels_90d_on_views_pct": 14.4,
     "profile_visits_30d": 117,
     "baixada_santista_pct": 24.2,
     "views_non_followers_pct_90d": 65.2
   },
   "app_insights_official": {
-    "captured_at": "2026-08-12T17:14:00-03:00",
+    "captured_at": "2026-08-14T16:52:02-03:00",
     "period_30d": {
       "label": "13 jul – 12 ago 2026",
       "start": "2026-07-13",
@@ -604,7 +615,7 @@
       "label": "14 mai – 11 ago 2026",
       "start": "2026-05-14",
       "end": "2026-08-11",
-      "visualizacoes_total": 20756,
+      "visualizacoes_total": 22262,
       "visualizadores_unicos": 9608,
       "visualizadores_variacao_pct": 36.7,
       "views_seguidores_pct": 34.8,
@@ -625,10 +636,14 @@
         "total": 364,
         "variacao_pct": -17.1,
         "periodo_comparacao": "13 fev – 13 mai",
-        "visitas_perfil": 355,
+        "visitas_perfil": 373,
         "visitas_variacao_pct": -18.6,
         "toques_link_externo": 9,
         "link_variacao_pct": 200
+      },
+      "painel_profissional": {
+        "visualizacoes": 22262,
+        "interacoes": 2084
       }
     }
   }

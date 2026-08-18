@@ -6,13 +6,15 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
-from mediakit_assets import prepare_assets
+from mediakit_assets import prepare_assets, resolve_pdf_cases
 from mediakit_glow import build_glow
-from mediakit_luxe import build_portfolio, build_print
+from mediakit_luxe import _pdf_download_filename, build_portfolio, build_print
 from mediakit_templates import build_editorial
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,6 +25,21 @@ OUT_DIR = ROOT / "output" / "mediakit"
 OUT_HTML = OUT_DIR / "media-kit.html"
 OUT_PORTFOLIO = OUT_DIR / "portfolio.html"
 OUT_PDF = OUT_DIR / "media-kit.pdf"
+
+
+def pdf_out_path(config: dict, metrics: dict | None = None) -> Path:
+    dn = (config.get("display_name") or "").strip()
+    if not dn and metrics:
+        dn = metrics.get("profile", {}).get("name", "Media Kit").split("|")[0].strip()
+    return OUT_DIR / _pdf_download_filename(dn or "Media-Kit")
+
+
+def write_pdf_exports(html_path: Path, config: dict, metrics: dict | None = None) -> Path:
+    """Gera PDF com nome da creator (evita cache do navegador no file://)."""
+    branded = pdf_out_path(config, metrics)
+    export_pdf(html_path, branded)
+    shutil.copy2(branded, OUT_PDF)
+    return branded
 
 
 def fmt_num(n: int | float) -> str:
@@ -556,9 +573,11 @@ def build_html(metrics: dict, config: dict, profile_pic: str | None) -> str:
 
 
 def export_pdf(html_path: Path, pdf_path: Path) -> None:
+    import time
+
     from playwright.sync_api import sync_playwright
 
-    uri = html_path.resolve().as_uri()
+    uri = html_path.resolve().as_uri() + f"?v={int(time.time())}"
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page(viewport={"width": 794, "height": 1123})
@@ -594,7 +613,47 @@ def main() -> None:
     )
     parser.add_argument("--pdf", action="store_true", help="Exporta media-kit.pdf via Playwright")
     parser.add_argument("--all", action="store_true", help="Gera portfolio.html + media-kit.pdf (recomendado)")
+    parser.add_argument(
+        "--pdf-only",
+        action="store_true",
+        help="Só exporta media-kit.pdf a partir de media-kit.html (rápido, sem regerar galeria)",
+    )
+    parser.add_argument(
+        "--glow-only",
+        action="store_true",
+        help="Regenera media-kit.html + PDF (6 reels, sem regerar portfolio web)",
+    )
     args = parser.parse_args()
+
+    if args.glow_only:
+        if not METRICS.exists():
+            raise SystemExit(f"Arquivo não encontrado: {METRICS}")
+        metrics = load_json(METRICS)
+        config = load_json(CONFIG) if CONFIG.exists() else {}
+        snapshot = load_json(SNAPSHOT) if SNAPSHOT.exists() else {}
+        period = period_label(metrics)
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
+        assets_pdf = (
+            prepare_assets(snapshot, config, limit_reels=6, fmt_num=fmt_num)
+            if snapshot
+            else {"profile_data_uri": "", "reels": [], "cases": []}
+        )
+        if snapshot:
+            assets_pdf["cases"] = resolve_pdf_cases(snapshot.get("media", []), config, fmt_num)
+        OUT_HTML.write_text(build_glow(metrics, config, assets_pdf, period, fmt_num), encoding="utf-8")
+        branded = write_pdf_exports(OUT_HTML, config, metrics)
+        print(f"HTML: {OUT_HTML}")
+        print(f"PDF:  {branded}")
+        return
+
+    if args.pdf_only:
+        if not OUT_HTML.exists():
+            raise SystemExit(f"Arquivo não encontrado: {OUT_HTML}\nRode o build luxe antes.")
+        config = load_json(CONFIG) if CONFIG.exists() else {}
+        branded = write_pdf_exports(OUT_HTML, config)
+        print(f"PDF: {branded}")
+        print(f"PDF (alias): {OUT_PDF}")
+        return
 
     if SNAPSHOT.exists():
         subprocess.run(
@@ -623,11 +682,13 @@ def main() -> None:
     period = period_label(metrics)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    want_pdf = args.pdf or args.all or args.style == "luxe"
+    want_pdf = (args.pdf or args.all or args.style == "luxe") and os.getenv("SKIP_PDF") != "1"
 
     if args.style == "luxe":
         assets = prepare_assets(snapshot, config, limit_reels=999, fmt_num=fmt_num) if snapshot else {"profile_data_uri": "", "reels": [], "cases": [], "case_thumbnails": {}}
         assets_pdf = prepare_assets(snapshot, config, limit_reels=6, fmt_num=fmt_num) if snapshot else assets
+        if snapshot:
+            assets_pdf["cases"] = resolve_pdf_cases(snapshot.get("media", []), config, fmt_num)
         portfolio = build_portfolio(metrics, config, assets, period, fmt_num)
         print_html = build_glow(metrics, config, assets_pdf, period, fmt_num)
         OUT_PORTFOLIO.write_text(portfolio, encoding="utf-8")
@@ -635,8 +696,9 @@ def main() -> None:
         print(f"Portfolio web: {OUT_PORTFOLIO}")
         print(f"PDF source:    {OUT_HTML}")
         if want_pdf:
-            export_pdf(OUT_HTML, OUT_PDF)
-            print(f"PDF:           {OUT_PDF}")
+            branded = write_pdf_exports(OUT_HTML, config, metrics)
+            print(f"PDF:           {branded}")
+            print(f"PDF (alias):   {OUT_PDF}")
         return
 
     if args.style == "glow":
@@ -653,8 +715,8 @@ def main() -> None:
     print(f"HTML ({args.style}): {OUT_HTML}")
 
     if args.pdf or args.all:
-        export_pdf(OUT_HTML, OUT_PDF)
-        print(f"PDF:  {OUT_PDF}")
+        branded = write_pdf_exports(OUT_HTML, config, metrics)
+        print(f"PDF:  {branded}")
 
 
 if __name__ == "__main__":

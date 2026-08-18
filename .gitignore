@@ -24,3 +24,13 @@ data/mediakit/thumb-fresh/
 data/mediakit/thumb-match/
 data/mediakit/ref-*.jpg
 output/mediakit/media-kit.pdf
+
+# Netlify CLI local
+.netlify/
+
+# Scratch / temp media kit
+data/mediakit/_tmp_*/
+data/mediakit/_match_*/
+data/mediakit/_search_*/
+data/mediakit/scraped_views.json
+output/*.zip

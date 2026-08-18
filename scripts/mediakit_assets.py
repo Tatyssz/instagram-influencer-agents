@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import base64
+import json
 import mimetypes
 import os
 import re
+import shutil
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -14,6 +16,10 @@ import requests
 ASSETS = Path(__file__).resolve().parent.parent / "output" / "mediakit" / "assets"
 ROOT = ASSETS.parent.parent.parent
 MANUAL_COVERS = ROOT / "data" / "mediakit" / "manual-covers"
+MANUAL_VIDEOS = ROOT / "data" / "mediakit" / "manual-videos"
+FEEDBACKS_SRC = ROOT / "data" / "mediakit" / "feedbacks"
+FEEDBACKS_ASSETS = ASSETS / "feedbacks"
+MIN_VIDEO_BYTES = 50_000
 GRAPH_IG = "https://graph.instagram.com/v21.0"
 LOCAL_HD_CANDIDATES = [
     ROOT / "data" / "mediakit" / "profile-hd.png",
@@ -231,6 +237,64 @@ def _media_categories_map(config: dict | None = None) -> dict[str, list[str]]:
             continue
         mapped[str(media_id)] = [_normalize_category_id(str(c)) for c in categories]
     return mapped
+
+
+def _media_views_map(config: dict | None = None) -> dict[str, int]:
+    portfolio = (config or {}).get("portfolio") or {}
+    raw = portfolio.get("media_views") or {}
+    mapped: dict[str, int] = {}
+    for media_id, views in raw.items():
+        try:
+            mapped[str(media_id)] = int(views)
+        except (TypeError, ValueError):
+            continue
+    return mapped
+
+
+def _scraped_views_map() -> dict[str, int]:
+    path = ROOT / "data" / "mediakit" / "scraped_views.json"
+    if not path.exists():
+        return {}
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    mapped: dict[str, int] = {}
+    for media_id, views in raw.items():
+        try:
+            mapped[str(media_id)] = int(views)
+        except (TypeError, ValueError):
+            continue
+    return mapped
+
+
+def resolve_media_views(
+    media_id: str,
+    insights: dict | None,
+    config: dict | None = None,
+    like_count: int = 0,
+) -> int:
+    """Views do Reel — override manual, API, cache scrape, reach ou estimativa por curtidas."""
+    ins = insights or {}
+    portfolio = (config or {}).get("portfolio") or {}
+    override = _media_views_map(config).get(str(media_id))
+    if override is not None:
+        return override
+    api_views = int(ins.get("views") or 0)
+    if api_views:
+        return api_views
+    scraped = _scraped_views_map().get(str(media_id))
+    if scraped:
+        return scraped
+    reach = int(ins.get("reach") or 0)
+    if reach:
+        return reach
+    likes = int(like_count or 0)
+    if likes > 0 and portfolio.get("views_fallback_from_likes", True):
+        ratio = float(portfolio.get("views_likes_ratio") or 14)
+        minimum = int(portfolio.get("views_likes_min") or 300)
+        return max(int(likes * ratio), minimum)
+    return 0
 
 
 def _brand_category_map(config: dict | None = None) -> dict[str, str]:
@@ -711,12 +775,44 @@ def _reel_cover_path(media_id: str) -> Path:
     return ASSETS / f"reel-{media_id}.jpg"
 
 
+def _reel_video_path(media_id: str) -> Path:
+    return ASSETS / f"reel-{media_id}.mp4"
+
+
 def _manual_cover_path(media_id: str) -> Path | None:
     for ext in (".jpg", ".jpeg", ".png", ".webp"):
         path = MANUAL_COVERS / f"reel-{media_id}{ext}"
         if path.exists() and path.stat().st_size >= MIN_COVER_BYTES:
             return path
     return None
+
+
+def _manual_video_path(media_id: str) -> Path | None:
+    for ext in (".mp4", ".webm", ".mov"):
+        path = MANUAL_VIDEOS / f"reel-{media_id}{ext}"
+        if path.exists() and path.stat().st_size >= MIN_VIDEO_BYTES:
+            return path
+    return None
+
+
+def _apply_manual_videos(posts: list[dict]) -> set[str]:
+    """Copia vídeos curados para assets/ (reel-{id}.mp4|.webm|.mov)."""
+    applied: set[str] = set()
+    if not MANUAL_VIDEOS.is_dir():
+        return applied
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    ids = {str(p.get("id", "")) for p in posts if p.get("id")}
+    for path in MANUAL_VIDEOS.iterdir():
+        if not path.is_file() or path.suffix.lower() not in {".mp4", ".webm", ".mov"}:
+            continue
+        media_id = path.stem.removeprefix("reel-")
+        if media_id not in ids:
+            continue
+        dest = ASSETS / f"reel-{media_id}{path.suffix.lower()}"
+        dest.write_bytes(path.read_bytes())
+        (ASSETS / f"reel-{media_id}.video.src").write_text(f"manual:{path.name}", encoding="utf-8")
+        applied.add(media_id)
+    return applied
 
 
 def _apply_manual_covers(posts: list[dict]) -> set[str]:
@@ -739,6 +835,18 @@ def _apply_manual_covers(posts: list[dict]) -> set[str]:
     return applied
 
 
+def _valid_video_file(path: Path | None) -> bool:
+    return bool(path and path.exists() and path.stat().st_size >= MIN_VIDEO_BYTES)
+
+
+def _reel_video_asset(media_id: str) -> tuple[Path | None, str]:
+    for ext in (".mp4", ".webm", ".mov"):
+        path = ASSETS / f"reel-{media_id}{ext}"
+        if _valid_video_file(path):
+            return path, f"assets/reel-{media_id}{ext}"
+    return None, ""
+
+
 def _valid_cover_file(path: Path | None) -> bool:
     return bool(path and path.exists() and path.stat().st_size >= MIN_COVER_BYTES)
 
@@ -755,10 +863,15 @@ def _post_to_reel(post: dict, index: int, config: dict | None = None) -> dict:
                 path = downloaded
 
     if not _valid_cover_file(path):
-        path = None
+        stale = _reel_cover_path(media_id)
+        if stale.exists() and stale.stat().st_size > 500:
+            path = stale
+        else:
+            path = None
 
-    asset_path = f"assets/reel-{media_id}.jpg" if _valid_cover_file(path) else ""
+    asset_path = f"assets/reel-{media_id}.jpg" if path else ""
     cover_url = _reel_cover_url(post) or ""
+    _, asset_video = _reel_video_asset(media_id)
     caption = post.get("caption") or ""
     title = caption.split("\n")[0][:72]
     ins = post.get("insights") or {}
@@ -770,12 +883,13 @@ def _post_to_reel(post: dict, index: int, config: dict | None = None) -> dict:
         "path": path,
         "cover_url": cover_url or "",
         "asset_path": asset_path,
+        "asset_video": asset_video,
         "data_uri": to_data_uri(path),
         "media_id": str(post.get("id", "")),
         "permalink": post.get("permalink") or "",
         "reach": ins.get("reach", 0),
         "likes": post.get("like_count", 0),
-        "views": ins.get("views", 0),
+        "views": resolve_media_views(media_id, ins, config, like_count=int(post.get("like_count") or 0)),
         "caption": caption[:120],
         "title": title,
         "brand": brand,
@@ -806,6 +920,43 @@ def resolve_hero_floats(config: dict | None) -> list[str]:
         if uri:
             uris.append(uri)
     return uris
+
+
+def resolve_hero_video(config: dict | None) -> tuple[str, str]:
+    """Copia vídeo do hero para assets/ — retorna (video_path, poster_path) relativos."""
+    config = config or {}
+    ASSETS.mkdir(parents=True, exist_ok=True)
+
+    candidates: list[Path] = []
+    custom = config.get("hero_video")
+    if custom:
+        p = _config_image_path(custom)
+        if p:
+            candidates.append(p)
+    mediakit = ROOT / "data" / "mediakit"
+    for name in (
+        "Apresentação Taty.mp4",
+        "Apresentacao Taty.mp4",
+        "hero-video.mp4",
+    ):
+        candidates.append(mediakit / name)
+    candidates.append(mediakit / "manual-videos" / "hero-video.mp4")
+
+    src = next((p for p in candidates if p.exists() and p.stat().st_size >= MIN_VIDEO_BYTES), None)
+    if not src:
+        return "", ""
+
+    dest = ASSETS / "hero-video.mp4"
+    if src.resolve() != dest.resolve():
+        dest.write_bytes(src.read_bytes())
+    dest.with_suffix(".video.src").write_text(f"hero:{src.name}", encoding="utf-8")
+
+    poster_dest = ASSETS / "hero-poster.jpg"
+    poster_src = _local_hd_path(config)
+    if poster_src and poster_src.exists():
+        poster_dest.write_bytes(poster_src.read_bytes())
+
+    return "assets/hero-video.mp4", "assets/hero-poster.jpg" if poster_dest.exists() else ""
 
 
 def _local_hd_path(config: dict | None) -> Path | None:
@@ -887,6 +1038,76 @@ def build_success_cases(reels: list[dict], fmt_num, limit: int = 6) -> list[dict
     return cases
 
 
+def build_highlight_cases(
+    posts: list[dict], config: dict, fmt_num, media_ids: list[str] | None = None
+) -> list[dict]:
+    portfolio_cfg = config.get("portfolio", {})
+    ids = media_ids or portfolio_cfg.get("highlight_case_ids") or []
+    if not ids:
+        return []
+    by_id = {str(p.get("id", "")): p for p in posts}
+    rows: list[dict] = []
+    for media_id in ids:
+        post = by_id.get(str(media_id))
+        if not post:
+            continue
+        caption = post.get("caption") or ""
+        ins = post.get("insights") or {}
+        brand = _extract_brand(caption, config)
+        categories = resolve_piece_categories(brand, caption, config, media_id=str(media_id))
+        brand = _display_brand(brand, categories[0])
+        rows.append(
+            {
+                "media_id": str(media_id),
+                "title": caption.split("\n")[0][:72],
+                "brand": brand,
+                "views": resolve_media_views(
+                    str(media_id), ins, config, like_count=int(post.get("like_count") or 0)
+                ),
+                "media_type": post.get("media_type", ""),
+            }
+        )
+    return build_success_cases(rows, fmt_num, limit=len(rows))
+
+
+def resolve_pdf_cases(posts: list[dict], config: dict, fmt_num) -> list[dict]:
+    portfolio_cfg = config.get("portfolio", {})
+    highlight_ids = portfolio_cfg.get("highlight_case_ids")
+    if highlight_ids:
+        cases = build_highlight_cases(posts, config, fmt_num, highlight_ids)
+        if cases:
+            return cases
+    if portfolio_cfg.get("auto_cases", True):
+        limit = int(portfolio_cfg.get("pdf_cases_limit", 3))
+        return build_top_cases(posts, config, fmt_num, limit=limit)
+    return config.get("cases", [])
+
+
+def build_top_cases(posts: list[dict], config: dict, fmt_num, limit: int = 3) -> list[dict]:
+    """Top parcerias do portfólio inteiro por views (sem baixar capas)."""
+    rows: list[dict] = []
+    for post in select_beauty_reels(posts, config, limit=999):
+        media_id = str(post.get("id", ""))
+        caption = post.get("caption") or ""
+        ins = post.get("insights") or {}
+        brand = _extract_brand(caption, config)
+        categories = resolve_piece_categories(brand, caption, config, media_id=media_id)
+        brand = _display_brand(brand, categories[0])
+        rows.append(
+            {
+                "media_id": media_id,
+                "title": caption.split("\n")[0][:72],
+                "brand": brand,
+                "views": resolve_media_views(
+                    media_id, ins, config, like_count=int(post.get("like_count") or 0)
+                ),
+                "media_type": post.get("media_type", ""),
+            }
+        )
+    rows.sort(key=lambda r: int(r.get("views") or 0), reverse=True)
+    return build_success_cases(rows[:limit], fmt_num, limit=limit)
+
+
 def prepare_assets(snapshot: dict, config: dict | None = None, limit_reels: int = 4, fmt_num=None) -> dict:
     config = config or {}
     hero_path, hero_source = resolve_hero_image(snapshot, config)
@@ -903,6 +1124,7 @@ def prepare_assets(snapshot: dict, config: dict | None = None, limit_reels: int 
     _cleanup_stale_reel_assets(valid_ids)
 
     manual_cover_ids = _apply_manual_covers(refreshed)
+    _apply_manual_videos(refreshed)
 
     try:
         from capture_reel_covers import capture_portfolio_covers
@@ -914,10 +1136,14 @@ def prepare_assets(snapshot: dict, config: dict | None = None, limit_reels: int 
 
     reels = [_post_to_reel(post, i, config) for i, post in enumerate(refreshed)]
     hero_uri = to_data_uri(hero_path)
+    hero_video, hero_poster = resolve_hero_video(config)
+    if config.get("hero_video") and not hero_video:
+        wanted = config.get("hero_video")
+        print(f"  Aviso: hero video nao encontrado ({wanted}) — coloque em data/mediakit/")
 
     portfolio_cfg = config.get("portfolio", {})
     if portfolio_cfg.get("auto_cases", True) and fmt_num:
-        cases = build_success_cases(reels, fmt_num, limit=6)
+        cases = build_top_cases(posts, config, fmt_num, limit=6)
     else:
         cases = config.get("cases", [])
 
@@ -926,7 +1152,40 @@ def prepare_assets(snapshot: dict, config: dict | None = None, limit_reels: int 
         "hero_data_uri": hero_uri,
         "hero_source": hero_source,
         "hero_float_uris": resolve_hero_floats(config),
+        "hero_video": hero_video,
+        "hero_poster": hero_poster,
         "reels": reels,
         "cases": cases,
         "case_thumbnails": _case_thumbnails(reels, cases),
+        "feedbacks": resolve_feedbacks(config),
     }
+
+
+def resolve_feedbacks(config: dict) -> list[dict]:
+    items = config.get("feedbacks") or []
+    if not items:
+        return []
+
+    FEEDBACKS_ASSETS.mkdir(parents=True, exist_ok=True)
+    resolved: list[dict] = []
+
+    for item in items:
+        img = (item.get("image") or "").strip()
+        if not img:
+            continue
+
+        src = Path(img)
+        if not src.is_absolute():
+            src = FEEDBACKS_SRC / Path(img).name
+
+        if not src.exists():
+            print(f"  Aviso: imagem de feedback nao encontrada ({img})")
+            continue
+
+        dest = FEEDBACKS_ASSETS / src.name
+        if not dest.exists() or src.stat().st_mtime > dest.stat().st_mtime:
+            shutil.copy2(src, dest)
+
+        resolved.append({**item, "asset_path": f"assets/feedbacks/{dest.name}"})
+
+    return resolved

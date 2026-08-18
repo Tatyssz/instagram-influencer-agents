@@ -185,6 +185,32 @@ def summarize_posts(posts: list[dict], followers: int) -> dict:
     }
 
 
+def _interactions_from_period(period: dict) -> int | None:
+    painel = period.get("painel_profissional") or {}
+    if painel.get("interacoes") is not None:
+        return int(painel["interacoes"])
+    reel = period.get("interacoes_reels") or {}
+    parts = [v for v in reel.values() if isinstance(v, (int, float))]
+    return int(sum(parts)) if parts else None
+
+
+def _reel_interactions_from_period(period: dict) -> int | None:
+    reel = period.get("interacoes_reels") or {}
+    parts = [v for v in reel.values() if isinstance(v, (int, float))]
+    return int(sum(parts)) if parts else None
+
+
+def _reel_views_from_period(period: dict) -> int | None:
+    painel = period.get("painel_profissional") or {}
+    if painel.get("visualizacoes_reels") is not None:
+        return int(painel["visualizacoes_reels"])
+    total = period.get("visualizacoes_total") or painel.get("visualizacoes")
+    reels_pct = (period.get("por_tipo") or {}).get("reels_pct")
+    if total and reels_pct is not None:
+        return round(int(total) * float(reels_pct) / 100)
+    return None
+
+
 def merge_app_insights(data: dict, app: dict | None) -> dict:
     if not app:
         return data
@@ -203,6 +229,22 @@ def merge_app_insights(data: dict, app: dict | None) -> dict:
         else None
     )
 
+    views_90d = p90.get("visualizacoes_total")
+    interactions_90d = _interactions_from_period(p90)
+    interaction_rate_90d = (
+        round(interactions_90d / views_90d * 100, 1)
+        if views_90d and interactions_90d
+        else None
+    )
+
+    interactions_reels_90d = _reel_interactions_from_period(p90)
+    views_reels_90d = _reel_views_from_period(p90)
+    interaction_rate_reels_90d = (
+        round(interactions_reels_90d / views_reels_90d * 100, 1)
+        if views_reels_90d and interactions_reels_90d
+        else None
+    )
+
     data["app_insights_official"] = {
         "captured_at": app.get("captured_at"),
         "period_30d": p30,
@@ -215,12 +257,23 @@ def merge_app_insights(data: dict, app: dict | None) -> dict:
         "content_shared_30d": painel.get("conteudo_compartilhado"),
         "interaction_rate_on_views_pct": interaction_rate_views,
         "visualizadores_90d": p90.get("visualizadores_unicos"),
-        "views_90d": p90.get("visualizacoes_total"),
+        "views_90d": views_90d,
+        "interactions_90d_official": interactions_90d,
+        "interaction_rate_90d_on_views_pct": interaction_rate_90d,
+        "interactions_reels_90d": interactions_reels_90d,
+        "views_reels_90d": views_reels_90d,
+        "interaction_rate_reels_90d_on_views_pct": interaction_rate_reels_90d,
     }
 
     h = data["media_kit_highlights"]
     h["views_30d_official"] = views_30d
     h["interactions_30d_official"] = interactions_30d
+    h["views_90d_official"] = views_90d
+    h["interactions_90d_official"] = interactions_90d
+    h["interaction_rate_90d_on_views_pct"] = interaction_rate_90d
+    h["interactions_reels_90d"] = interactions_reels_90d
+    h["views_reels_90d"] = views_reels_90d
+    h["interaction_rate_reels_90d_on_views_pct"] = interaction_rate_reels_90d
     h["profile_visits_30d"] = ativ.get("visitas_perfil")
     h["brazil_audience_pct"] = next(
         (c["percent"] for c in aud.get("paises", []) if c.get("pais") == "Brasil"),
