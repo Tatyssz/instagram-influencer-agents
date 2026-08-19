@@ -62,7 +62,7 @@ python -m playwright install chromium
 4. Redirect URI: `https://localhost:8765/callback`
 5. Adicionar-se como **Testador do Instagram** (modo dev)
 
-Detalhes completos: [`docs/CURSO-PASSO-A-PASSO.md`](docs/CURSO-PASSO-A-PASSO.md)
+Detalhes completos: [`docs/toolkit/CURSO-PASSO-A-PASSO.md`](docs/toolkit/CURSO-PASSO-A-PASSO.md)
 
 ### 3. Configurar `.env`
 
@@ -99,7 +99,7 @@ python scripts/build_mediakit_metrics.py
 python scripts/build_mediakit_html.py --style luxe --all
 ```
 
-Abrir `output/mediakit/portfolio.html`. Curadoria: [`docs/MEDIA-KIT-CURADORIA.md`](docs/MEDIA-KIT-CURADORIA.md)
+Abrir `output/mediakit/portfolio.html`. Curadoria: [`docs/toolkit/MEDIA-KIT-CURADORIA.md`](docs/toolkit/MEDIA-KIT-CURADORIA.md)
 
 ---
 
@@ -131,7 +131,10 @@ instagram-influencer-agents/
 │   ├── sync/                  # dump API (gitignored)
 │   └── profile/               # target + sessão (gitignored)
 ├── docs/
-│   └── CURSO-PASSO-A-PASSO.md # material de curso
+│   ├── README.md              # índice de toda documentação
+│   ├── produto/               # visão SaaS
+│   ├── toolkit/               # curso + curadoria media kit
+│   └── saas/                  # specs técnicas (F0+)
 ├── PROJECT_STATUS.md          # status de projeto real
 ├── ROADMAP.md
 └── CHANGELOG.md
@@ -141,12 +144,16 @@ instagram-influencer-agents/
 
 ## Documentação do projeto
 
+**Comece aqui:** [`docs/README.md`](docs/README.md) — índice mestre (toolkit + SaaS + fases).
+
 | Arquivo | Conteúdo |
 |---------|----------|
+| [docs/README.md](docs/README.md) | Mapa de toda documentação |
+| [docs/produto/PRODUTO-SAAS-VISAO.md](docs/produto/PRODUTO-SAAS-VISAO.md) | Visão do produto SaaS (fases, planos, comunidade) |
+| [docs/toolkit/CURSO-PASSO-A-PASSO.md](docs/toolkit/CURSO-PASSO-A-PASSO.md) | Tutorial completo (curso) |
 | [PROJECT_STATUS.md](PROJECT_STATUS.md) | Fases, progresso, métricas, riscos |
-| [ROADMAP.md](ROADMAP.md) | Versões futuras + produto vendável |
+| [ROADMAP.md](ROADMAP.md) | Versões futuras do toolkit |
 | [CHANGELOG.md](CHANGELOG.md) | Histórico de releases |
-| [docs/CURSO-PASSO-A-PASSO.md](docs/CURSO-PASSO-A-PASSO.md) | Tutorial completo (curso) |
 
 ---
 
