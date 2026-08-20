@@ -132,7 +132,7 @@
 
 **Objetivo:** Decisões de produto e negócio tomadas antes de codar.  
 **Duração:** 1–2 dias  
-**Progresso épico:** ⬜ 0/8
+**Progresso épico:** 🔄 5/8
 
 ### [DEC-01] Definir nome do produto e domínio
 
@@ -157,17 +157,17 @@
 
 | Campo | Conteúdo |
 |-------|----------|
-| **Status** | ⬜ A fazer |
+| **Status** | ✅ Concluído |
 | **Dependências** | Nenhuma |
 
-**Descrição:** Quem paga primeiro: UGC beauty iniciante, micro creator 5–10k, ou 10k+.
+**Descrição:** Beauty influencer BR (UGC + creator tradicional). Três faixas: A 500–3k, B 3k–10k (prioridade launch), C 10k+.
 
 **Resultado esperado:** Persona escrita com dores, objetivo e willingness to pay.
 
 **Critérios de aceite:**
 
-  - [ ] 1 persona primária escolhida
-  - [ ] Registrada no doc de produto
+  - [x] 1 persona primária escolhida
+  - [x] Registrada no doc de produto
 
 ---
 
@@ -175,17 +175,17 @@
 
 | Campo | Conteúdo |
 |-------|----------|
-| **Status** | ⬜ A fazer |
+| **Status** | ✅ Concluído |
 | **Dependências** | DEC-02 |
 
-**Descrição:** Quantos planos no go-live (recomendado Starter + Pro) e preços de referência.
+**Descrição:** Start R$69 (só ferramenta) + Pro R$129 (hero: + comunidade + cursos). Plano Plus/intermediário TBD depois.
 
 **Resultado esperado:** Tabela de planos fechada para F1.
 
 **Critérios de aceite:**
 
-  - [ ] Planos e limites por plano definidos
-  - [ ] Preços de referência validados
+  - [x] Planos e limites por plano definidos
+  - [x] Preços de referência validados
 
 ---
 
@@ -193,17 +193,17 @@
 
 | Campo | Conteúdo |
 |-------|----------|
-| **Status** | ⬜ A fazer |
+| **Status** | ✅ Concluído |
 | **Dependências** | DEC-03 |
 
-**Descrição:** Trial 7 dias vs pagamento direto vs freemium limitado.
+**Descrição:** Trial 7 dias com limitações (Start + Pro). Cartão obrigatório. Pro+ sem trial. Ver TRIAL-POLICY.md.
 
 **Resultado esperado:** Política de trial documentada.
 
 **Critérios de aceite:**
 
-  - [ ] Decisão única registrada
-  - [ ] Impacto no billing descrito
+  - [x] Decisão única registrada
+  - [x] Impacto no billing descrito
 
 ---
 
@@ -211,17 +211,17 @@
 
 | Campo | Conteúdo |
 |-------|----------|
-| **Status** | ⬜ A fazer |
+| **Status** | ✅ Concluído |
 | **Dependências** | DEC-03 |
 
-**Descrição:** Stripe, Mercado Pago ou ambos para assinatura BR.
+**Descrição:** Stripe principal F1 (assinatura + trial + cursos). Mercado Pago PIX opcional F2 para curso avulso. Ver PAYMENT-GATEWAY.md.
 
 **Resultado esperado:** Gateway escolhido + conta criada ou em criação.
 
 **Critérios de aceite:**
 
-  - [ ] Conta sandbox/teste acessível
-  - [ ] Documentado em docs/saas/
+  - [x] Decisão documentada em docs/saas/PAYMENT-GATEWAY.md
+  - [ ] Conta Stripe teste criada antes de F1-08 (checklist no doc)
 
 ---
 
@@ -247,17 +247,17 @@
 
 | Campo | Conteúdo |
 |-------|----------|
-| **Status** | ⬜ A fazer |
+| **Status** | ✅ Concluído |
 | **Dependências** | DEC-02, DEC-03 |
 
-**Descrição:** Esboço das 5 telas usuária + 2 admin para Core SaaS.
+**Descrição:** Wireframes textuais: onboarding (Stripe+IG), 5 telas app, 2 admin.
 
 **Resultado esperado:** Wireframes em docs/saas/FRONT-TELAS.md ou Figma link.
 
 **Critérios de aceite:**
 
-  - [ ] Onboarding, dashboard, media kit, portfólio, conta mapeados
-  - [ ] Admin: lista usuárias + detalhe mapeados
+  - [x] Onboarding, dashboard, media kit, portfólio, conta mapeados
+  - [x] Admin: lista usuárias + detalhe mapeados
 
 ---
 

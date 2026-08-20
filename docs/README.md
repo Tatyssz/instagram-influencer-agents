@@ -14,20 +14,25 @@ Este arquivo é o **mapa**. Qualquer doc novo entra aqui na lista antes (ou logo
 docs/
 ├── README.md                         ← VOCÊ ESTÁ AQUI
 ├── produto/
-│   └── PRODUTO-SAAS-VISAO.md         ← visão SaaS (negócio, fases, planos)
+│   ├── PRODUTO-SAAS-VISAO.md         ← visão SaaS (negócio, fases, planos)
+│   ├── PERSONA-01.md                 ← persona #1 (DEC-02) ✅
+│   ├── PLANOS-LAUNCH.md              ← planos e preços (DEC-03) ✅
+│   └── TRIAL-POLICY.md               ← trial 7 dias (DEC-04) ✅
 ├── toolkit/
 │   ├── README.md
 │   ├── CURSO-PASSO-A-PASSO.md        ← curso / Academy C1–C3
 │   └── MEDIA-KIT-CURADORIA.md        ← curadoria portfólio case Taty
 └── saas/
     ├── ENTREGAS-FASES.md             ← esqueleto (preencher na F0)
-    ├── FRONT-TELAS.md
+    ├── FRONT-TELAS.md                 ← wireframes F1 (DEC-07) ✅
     ├── ARQUITETURA.md
     ├── SCHEMA-DB.md
     ├── ACADEMY-CATALOGO.md
     ├── META-APP.md
     ├── DEPLOY.md
     ├── RUNBOOK.md
+    ├── PAYMENT-GATEWAY.md              ← Stripe + MP (DEC-05) ✅
+    ├── ROADMAP-EXECUCAO.md             ← checklist Jira (MD)
     └── ADR/
         └── 001-stack.md
 ```

@@ -5,7 +5,7 @@
 > **Autora / fundadora / case zero:** Tatiana Zacharias (@tatyzacharias)  
 > **Instagram produto:** [@comjuntas](https://www.instagram.com/comjuntas/) ✅  
 > **Data do registro:** 2026-08-19  
-> **Última atualização:** 2026-08-19 — Nome **ComJuntas** fechado (DEC-01)  
+> **Última atualização:** 2026-08-19 — Persona #1 (DEC-02) fechada  
 > **Contexto:** portfólio UGC v1 pronto em https://tatiana-zacharias-portfolio.netlify.app/ugc/
 
 ---
@@ -192,28 +192,19 @@ Módulos / aulas (progresso opcional: lesson_completed)
 
 ---
 
-## Personas e planos (rascunho)
+## Personas e planos — fechado (DEC-03)
 
-| Plano | Preço ref. | SaaS inclui | Cursos no pacote |
-|-------|------------|-------------|------------------|
-| **Starter** | R$ 49–79/mês | 1 conta IG, media kit mensal, link público, 1 círculo (só lembretes) | **C1** (intro API) |
-| **Pro** | R$ 99–149/mês | + portfólio web, relatório IA, sync diário, círculo aprovar + executar (~10/dia) | **C1 + C2 + C3** |
-| **Creator+** | R$ 199+/mês | + mais círculos, quota maior, prioridade | **Todos (C1–C5)** quando existirem |
-| **Agency** | Sob consulta | N contas, white-label, círculos privados | Negociável / licença equipe |
+Detalhes completos: [`PLANOS-LAUNCH.md`](PLANOS-LAUNCH.md)
 
-**Avulso (exemplos de preço — validar depois):**
+| Plano | Preço | Persona | Venda desde |
+|-------|-------|---------|-------------|
+| **ComJuntas Start** | R$ 69/mês | A — 500–3k | F1 · só ferramenta |
+| **ComJuntas Pro** ⭐ | R$ 129/mês | B/C — 3k+ | F1 · **+ comunidade + cursos** |
+| **Plus** | *TBD* | — | ⏸ decidir depois (engajamento auto?) |
 
-| Curso | Compra única ref. |
-|-------|-------------------|
-| C1 | R$ 97–147 |
-| C2 | R$ 127–197 |
-| C3 | R$ 197–297 |
-| C4 | R$ 147–247 |
-| Bundle C1+C2+C3 | R$ 397–497 (desconto vs avulso) |
+**F1 cobra:** Start + Pro · **Hero:** Pro · Comunidade/cursos: **só Pro** (por enquanto)
 
-**Billing:** Stripe ou Mercado Pago — **assinatura recorrente** + **checkout one-time** para cursos. Sem assinatura ativa → sem sync, fila, execução (curso avulso continua acessível se comprou).
-
-*(Preços e nomes finais — definir antes do billing.)*
+*(Billing: [`PAYMENT-GATEWAY.md`](../saas/PAYMENT-GATEWAY.md) ✅ · Trial: [`TRIAL-POLICY.md`](TRIAL-POLICY.md) ✅)*
 
 ---
 
@@ -495,7 +486,7 @@ Um projeto **Next.js** com rotas e roles separados:
 | **Fundadora** | Tatiana Zacharias — case zero UGC beauty/hair |
 | **Bio sugerida** | *ComJuntas · comunidade UGC beauty · media kit, portfólio e apoio mútuo · by Tatiana Zacharias* |
 | **Domínio alvo** | `comjuntas.com.br` · `app.` · `admin.` *(registrar — pendente DEC-01)* |
-| **Planos (rascunho)** | ComJuntas Start · ComJuntas Pro · ComJuntas+ |
+| **Planos (DEC-03)** | Start R$69 · Pro R$129 (+ comunidade + cursos) · Plus TBD — [`PLANOS-LAUNCH.md`](PLANOS-LAUNCH.md) |
 | **App Meta** | Pode permanecer técnico (*Taty Manager*); nome comercial é ComJuntas |
 
 **Posicionamento de marca (DEC-06 — parcial):** ComJuntas é a marca; Tatiana é a **fundadora e face** do movimento, não sigla nas iniciais.
@@ -506,7 +497,7 @@ Um projeto **Next.js** com rotas e roles separados:
 
 ## O que mais decidir (checklist mestre)
 
-**Negócio:** 1 ou 2 planos no launch? Trial? Stripe vs MP? Persona #1 (iniciante vs 10k+)?  
+**Negócio:** ~~Persona~~ ✅ · ~~Planos~~ ✅ · ~~Trial~~ ✅ · ~~Stripe (DEC-05)~~ ✅  
 **Legal:** Termos + LGPD (F1); consentimento engajamento (F4); Meta dev vs produção  
 **Marca:** logo/cores (derivar do luxe?), ComJuntas + Tatiana como fundadora  
 **Ops:** hosting (Vercel + Railway?), suporte (WhatsApp/e-mail), quem modera círculos  
@@ -514,9 +505,10 @@ Um projeto **Next.js** com rotas e roles separados:
 
 ---
 
-## Posicionamento (rascunho)
+## Posicionamento
 
-- Nicho inicial: **UGC beauty / hair / makeup** (diferencial do case Taty)
+- Nicho inicial: **influencer de beleza** (cabelo, makeup, skincare) — UGC **e** creator tradicional
+- Persona launch (aquisição F1): **micro 3k–10k** — ver [`PERSONA-01.md`](PERSONA-01.md)
 - Proposta: media kit + portfólio + IA + comunidade + cursos (ferramenta + educação)
 - Naming: **ComJuntas** (ver seção [Nome do produto — fechado](#nome-do-produto--fechado))
 
@@ -527,7 +519,7 @@ Um projeto **Next.js** com rotas e roles separados:
 **Agora (F0 — escolher 1 por vez):**
 
 1. ~~**Decidir nome**~~ → **ComJuntas** ✅ · ~~`@comjuntas`~~ ✅ · registrar domínio
-2. **Wireframe F1** — 5 telas usuária + 2 admin (papel ou Figma)
+2. ~~**Wireframe F1**~~ ✅ — [`FRONT-TELAS.md`](../saas/FRONT-TELAS.md)
 3. **Criar repo** `comjuntas-saas` + schema F0/F1
 4. **Landing 1 página** + waitlist (opcional antes do billing)
 

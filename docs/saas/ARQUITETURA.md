@@ -26,6 +26,6 @@
 | DB | Postgres |
 | Filas | Redis + Celery |
 | Auth | Clerk ou Supabase |
-| Pagamento | Stripe / Mercado Pago |
+| Pagamento | **Stripe** (F1) · MP PIX cursos (F2 opcional) — [`PAYMENT-GATEWAY.md`](saas/PAYMENT-GATEWAY.md) |
 
 Ver também: [`SCHEMA-DB.md`](SCHEMA-DB.md), [`../produto/PRODUTO-SAAS-VISAO.md`](../produto/PRODUTO-SAAS-VISAO.md)

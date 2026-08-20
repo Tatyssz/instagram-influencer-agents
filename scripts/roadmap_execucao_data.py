@@ -148,43 +148,63 @@ EPICS: list[Epic] = [
             Task(
                 id="DEC-02",
                 title="Definir persona #1",
-                description="Quem paga primeiro: UGC beauty iniciante, micro creator 5–10k, ou 10k+.",
+                description=(
+                    "Beauty influencer BR (UGC + creator tradicional). "
+                    "Três faixas: A 500–3k, B 3k–10k (prioridade launch), C 10k+."
+                ),
                 expected_result="Persona escrita com dores, objetivo e willingness to pay.",
                 acceptance_criteria=[
                     "1 persona primária escolhida",
                     "Registrada no doc de produto",
                 ],
                 dependencies=[],
+                status="done",
+                criteria_checked=[True, True],
             ),
             Task(
                 id="DEC-03",
                 title="Definir planos no launch",
-                description="Quantos planos no go-live (recomendado Starter + Pro) e preços de referência.",
+                description=(
+                    "Start R$69 (só ferramenta) + Pro R$129 (hero: + comunidade + cursos). "
+                    "Plano Plus/intermediário TBD depois."
+                ),
                 expected_result="Tabela de planos fechada para F1.",
                 acceptance_criteria=[
                     "Planos e limites por plano definidos",
                     "Preços de referência validados",
                 ],
                 dependencies=["DEC-02"],
+                status="done",
+                criteria_checked=[True, True],
             ),
             Task(
                 id="DEC-04",
                 title="Definir modelo de trial",
-                description="Trial 7 dias vs pagamento direto vs freemium limitado.",
+                description=(
+                    "Trial 7 dias com limitações (Start + Pro). "
+                    "Cartão obrigatório. Pro+ sem trial. Ver TRIAL-POLICY.md."
+                ),
                 expected_result="Política de trial documentada.",
                 acceptance_criteria=["Decisão única registrada", "Impacto no billing descrito"],
                 dependencies=["DEC-03"],
+                status="done",
+                criteria_checked=[True, True],
             ),
             Task(
                 id="DEC-05",
                 title="Escolher gateway de pagamento",
-                description="Stripe, Mercado Pago ou ambos para assinatura BR.",
+                description=(
+                    "Stripe principal F1 (assinatura + trial + cursos). "
+                    "Mercado Pago PIX opcional F2 para curso avulso. Ver PAYMENT-GATEWAY.md."
+                ),
                 expected_result="Gateway escolhido + conta criada ou em criação.",
                 acceptance_criteria=[
-                    "Conta sandbox/teste acessível",
-                    "Documentado em docs/saas/",
+                    "Decisão documentada em docs/saas/PAYMENT-GATEWAY.md",
+                    "Conta Stripe teste criada antes de F1-08 (checklist no doc)",
                 ],
                 dependencies=["DEC-03"],
+                status="done",
+                criteria_checked=[True, False],
             ),
             Task(
                 id="DEC-06",
@@ -202,13 +222,15 @@ EPICS: list[Epic] = [
             Task(
                 id="DEC-07",
                 title="Wireframe F1 (app + admin)",
-                description="Esboço das 5 telas usuária + 2 admin para Core SaaS.",
+                description="Wireframes textuais: onboarding (Stripe+IG), 5 telas app, 2 admin.",
                 expected_result="Wireframes em docs/saas/FRONT-TELAS.md ou Figma link.",
                 acceptance_criteria=[
                     "Onboarding, dashboard, media kit, portfólio, conta mapeados",
                     "Admin: lista usuárias + detalhe mapeados",
                 ],
                 dependencies=["DEC-02", "DEC-03"],
+                status="done",
+                criteria_checked=[True, True],
             ),
             Task(
                 id="DEC-08",
