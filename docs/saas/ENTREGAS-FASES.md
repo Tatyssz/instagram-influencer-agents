@@ -1,7 +1,7 @@
 # Entregas por fase (F0–F5)
 
-> **Status:** F0 local validado · F1 etapa 1 ✅ · staging pendente  
-> **Atualizado:** 2026-08-20
+> **Status:** F0 local validado · F1 etapa 1 ✅ · F1 etapa 1.5 piloto local 🔄 · staging pendente  
+> **Atualizado:** 2026-08-24
 
 ## Resumo
 
@@ -14,8 +14,9 @@
 | F4 | Engajamento | Pro+ | Aprovar+executar estável 1 semana |
 | F5 | Escala | — | Templates, agency, domínio |
 
-**Registros de sessão:** [`F0-SESSAO-2026-08-20.md`](F0-SESSAO-2026-08-20.md) · [`F1-ETAPA1-SESSAO-2026-08-20.md`](F1-ETAPA1-SESSAO-2026-08-20.md)  
-**Ritual fim de etapa (commit + docs):** [`RITUAL-FIM-ETAPA.md`](RITUAL-FIM-ETAPA.md)
+**Registros de sessão:** [`F0-SESSAO-2026-08-20.md`](F0-SESSAO-2026-08-20.md) · [`F1-ETAPA1-SESSAO-2026-08-20.md`](F1-ETAPA1-SESSAO-2026-08-20.md) · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md)  
+**Ritual fim de etapa (commit + docs):** [`RITUAL-FIM-ETAPA.md`](RITUAL-FIM-ETAPA.md)  
+**Regras comunidade (DEC-2026-08-20):** [`COMUNIDADE-REGRAS.md`](COMUNIDADE-REGRAS.md)
 
 ## F0 — Fundação
 
@@ -45,7 +46,7 @@ Ver [`F1-ORDEM-EXECUCAO.md`](F1-ORDEM-EXECUCAO.md).
 | # | Entrega | Status |
 |---|---------|--------|
 | 1 | OAuth IG + sync + dashboard | ✅ testado @tatyzacharias · commit `c22b6b0` |
-| **1.5** | **Comunidade: curtir / comentar / seguir com aprovação** | 🔄 próximo |
+| **1.5** | **Comunidade: follow mútuo + fila + alertas unfollow** | 🔄 piloto local · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md) |
 | 2 | Media kit PDF | ⬜ |
 | 3 | Portfólio luxe | ⬜ |
 | 4 | IA + Stripe + visual | ⬜ |
@@ -56,9 +57,13 @@ Ver [`F1-ORDEM-EXECUCAO.md`](F1-ORDEM-EXECUCAO.md).
 - [x] Migration `circles`, `circle_members`, `engagement_queue`, `engagement_actions`
 - [x] Menu **Comunidade** no app (shell)
 - [x] Conectar Instagram (etapa 1) — ver [`F1-ETAPA1-SESSAO-2026-08-20.md`](F1-ETAPA1-SESSAO-2026-08-20.md)
-- [ ] Fila populada pelo sync
-- [ ] Tela aprovar + executar
-- [ ] Piloto 2 creators
+- [x] Gate follow círculo + login Chrome + fila Playwright (piloto)
+- [x] Detecção unfollow manual + refollow + alerta ADM/usuária
+- [x] Tela **Meus posts** — marcar pedido (contador 1/dia piloto)
+- [ ] Fila engajamento populada pelo sync
+- [ ] Executar curtir/comentar após aprovação
+- [ ] Dados da comunidade no Postgres (hoje JSON em `.data/`)
+- [ ] Piloto 2 creators em staging
 
 ## F1 — itens originais (depois)
 

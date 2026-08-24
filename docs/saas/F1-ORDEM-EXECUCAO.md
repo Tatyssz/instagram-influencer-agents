@@ -11,6 +11,8 @@
 |---|------|-------------------|--------------------------|
 | **1** | Conectar Instagram | Dashboard com números reais | Dados oficiais (Meta API) |
 | **1.5** | **Comunidade + engajamento** | Fila de posts das parceiras; aprovar curtir / comentar / seguir | **Você aprova cada ação**; comentário editável; contas reais |
+
+**Regras de produto:** [`COMUNIDADE-REGRAS.md`](COMUNIDADE-REGRAS.md) — follow no onboarding · Opção A (marcar Reel) · **1 pedido/dia** no Pro
 | **2** | Media kit PDF | Gera PDF glow | — |
 | **3** | Portfólio luxe | Link público | — |
 | **4** | IA + Stripe + visual | Pro completo + cobrança | — |
@@ -23,7 +25,7 @@
 | # | Status | Commit / doc |
 |---|--------|----------------|
 | **1** | ✅ Concluída 2026-08-20 | `c22b6b0` · [`F1-ETAPA1-SESSAO-2026-08-20.md`](F1-ETAPA1-SESSAO-2026-08-20.md) |
-| **1.5** | 🔄 Em andamento | — |
+| **1.5** | 🔄 Piloto local 2026-08-24 | `bc7c457` · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md) |
 | **2–5** | ⬜ | — |
 
 **Ritual ao fechar cada etapa:** [`RITUAL-FIM-ETAPA.md`](RITUAL-FIM-ETAPA.md)
@@ -64,14 +66,16 @@ Seguir tem limite mais baixo que curtir (risco de parecer bot) — regra no prod
 
 ## Fases técnicas (por trás)
 
-| Sub-etapa | Entrega |
-|-----------|---------|
-| **1.5a** | Banco: círculos + fila + ações |
-| **1.5b** | Tela Comunidade no app (fila + aprovar) |
-| **1.5c** | Sync popula fila quando parceira posta |
-| **1.5d** | Autorizar sessão IG para executar |
-| **1.5e** | Worker: curtir + comentar + seguir após `approved` |
-| **1.5f** | Piloto: 2 creators (ex.: Taty + 1 beta) |
+| Sub-etapa | Entrega | Status |
+|-----------|---------|--------|
+| **1.5a** | Banco: círculos + fila + ações | ⬜ migration existe; app usa JSON |
+| **1.5b** | Tela Comunidade (fila + aprovar) | 🔄 UI + gate follow |
+| **1.5b2** | Follow mútuo Chrome + fila Playwright | ✅ piloto @tatianaugc ↔ @tatyzacharias |
+| **1.5b3** | Unfollow manual → refollow + alerta ADM/usuária | ✅ local |
+| **1.5c** | Sync popula fila quando parceira posta | ⬜ |
+| **1.5d** | Autorizar sessão IG (Chrome + web session) | ✅ Chrome piloto |
+| **1.5e** | Worker: curtir + comentar após `approved` | ⬜ |
+| **1.5f** | Piloto: 2 creators | 🔄 em teste local |
 
 ---
 
