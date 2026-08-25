@@ -37,6 +37,7 @@ Quando a etapa atingir o **critério de saída** (funciona na máquina da Taty, 
 |-------|--------|------|-------|
 | F0 + F1 etapa 1 | `c22b6b0` | 2026-08-20 | Monorepo + OAuth IG + dashboard |
 | F1 etapa 1.5 (piloto) | `bc7c457` | 2026-08-24 | Comunidade: follow Chrome + unfollow alerts · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md) |
+| F1 etapa 1.5 (engajamento) | `541e4dc` | 2026-08-25 | Fila + exec IG + sininho + comentários v7 · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md) |
 
 ---
 

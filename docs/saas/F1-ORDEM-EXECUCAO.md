@@ -25,7 +25,7 @@
 | # | Status | Commit / doc |
 |---|--------|----------------|
 | **1** | ✅ Concluída 2026-08-20 | `c22b6b0` · [`F1-ETAPA1-SESSAO-2026-08-20.md`](F1-ETAPA1-SESSAO-2026-08-20.md) |
-| **1.5** | 🔄 Piloto local 2026-08-24 | `bc7c457` · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md) |
+| **1.5** | 🔄 Piloto local 2026-08-25 | `541e4dc` · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md) |
 | **2–5** | ⬜ | — |
 
 **Ritual ao fechar cada etapa:** [`RITUAL-FIM-ETAPA.md`](RITUAL-FIM-ETAPA.md)
@@ -69,13 +69,13 @@ Seguir tem limite mais baixo que curtir (risco de parecer bot) — regra no prod
 | Sub-etapa | Entrega | Status |
 |-----------|---------|--------|
 | **1.5a** | Banco: círculos + fila + ações | ⬜ migration existe; app usa JSON |
-| **1.5b** | Tela Comunidade (fila + aprovar) | 🔄 UI + gate follow |
-| **1.5b2** | Follow mútuo Chrome + fila Playwright | ✅ piloto @tatianaugc ↔ @tatyzacharias |
+| **1.5b** | Tela Comunidade (fila + aprovar) | ✅ UI + comentários v7 + sininho |
+| **1.5b2** | Follow mútuo Chrome + fila Playwright | ✅ piloto |
 | **1.5b3** | Unfollow manual → refollow + alerta ADM/usuária | ✅ local |
 | **1.5c** | Sync popula fila quando parceira posta | ⬜ |
 | **1.5d** | Autorizar sessão IG (Chrome + web session) | ✅ Chrome piloto |
-| **1.5e** | Worker: curtir + comentar após `approved` | ⬜ |
-| **1.5f** | Piloto: 2 creators | 🔄 em teste local |
+| **1.5e** | Worker: curtir + comentar após `approved` | 🔄 API web + browser fallback · exec async |
+| **1.5f** | Piloto: 3 creators | 🔄 em teste local |
 
 ---
 

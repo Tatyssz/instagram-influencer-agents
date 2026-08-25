@@ -1,7 +1,7 @@
 # Entregas por fase (F0–F5)
 
 > **Status:** F0 local validado · F1 etapa 1 ✅ · F1 etapa 1.5 piloto local 🔄 · staging pendente  
-> **Atualizado:** 2026-08-24
+> **Atualizado:** 2026-08-25
 
 ## Resumo
 
@@ -14,7 +14,7 @@
 | F4 | Engajamento | Pro+ | Aprovar+executar estável 1 semana |
 | F5 | Escala | — | Templates, agency, domínio |
 
-**Registros de sessão:** [`F0-SESSAO-2026-08-20.md`](F0-SESSAO-2026-08-20.md) · [`F1-ETAPA1-SESSAO-2026-08-20.md`](F1-ETAPA1-SESSAO-2026-08-20.md) · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md)  
+**Registros de sessão:** [`F0-SESSAO-2026-08-20.md`](F0-SESSAO-2026-08-20.md) · [`F1-ETAPA1-SESSAO-2026-08-20.md`](F1-ETAPA1-SESSAO-2026-08-20.md) · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md) · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md)  
 **Ritual fim de etapa (commit + docs):** [`RITUAL-FIM-ETAPA.md`](RITUAL-FIM-ETAPA.md)  
 **Regras comunidade (DEC-2026-08-20):** [`COMUNIDADE-REGRAS.md`](COMUNIDADE-REGRAS.md)
 
@@ -46,7 +46,7 @@ Ver [`F1-ORDEM-EXECUCAO.md`](F1-ORDEM-EXECUCAO.md).
 | # | Entrega | Status |
 |---|---------|--------|
 | 1 | OAuth IG + sync + dashboard | ✅ testado @tatyzacharias · commit `c22b6b0` |
-| **1.5** | **Comunidade: follow mútuo + fila + alertas unfollow** | 🔄 piloto local · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-24.md) |
+| **1.5** | **Comunidade: follow + fila engajamento + exec IG** | 🔄 piloto local · [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md) |
 | 2 | Media kit PDF | ⬜ |
 | 3 | Portfólio luxe | ⬜ |
 | 4 | IA + Stripe + visual | ⬜ |
@@ -59,9 +59,12 @@ Ver [`F1-ORDEM-EXECUCAO.md`](F1-ORDEM-EXECUCAO.md).
 - [x] Conectar Instagram (etapa 1) — ver [`F1-ETAPA1-SESSAO-2026-08-20.md`](F1-ETAPA1-SESSAO-2026-08-20.md)
 - [x] Gate follow círculo + login Chrome + fila Playwright (piloto)
 - [x] Detecção unfollow manual + refollow + alerta ADM/usuária
-- [x] Tela **Meus posts** — marcar pedido (contador 1/dia piloto)
-- [ ] Fila engajamento populada pelo sync
-- [ ] Executar curtir/comentar após aprovação
+- [x] Tela **Meus posts** — marcar pedido (contador 1/dia piloto) + badges Na fila / Concluído
+- [x] Fila engajamento — aprovar curtir + comentário (seguir removido por post)
+- [x] Executar curtir/comentar após aprovação (API web + fallback browser, async)
+- [x] Sininho de avisos + dismiss «Excluir aviso»
+- [x] Comentários sugeridos contextuais (gerador v7)
+- [ ] Fila engajamento populada pelo sync automático
 - [ ] Dados da comunidade no Postgres (hoje JSON em `.data/`)
 - [ ] Piloto 2 creators em staging
 
@@ -82,7 +85,8 @@ Ver [`F1-ORDEM-EXECUCAO.md`](F1-ORDEM-EXECUCAO.md).
 
 ## F4 — Engajamento
 
-- [ ] Sessão IG + aprovar + executar
+- [x] Sessão IG + aprovar + executar (piloto local)
+- [ ] Estável 1 semana em staging
 
 ## F5 — Escala
 

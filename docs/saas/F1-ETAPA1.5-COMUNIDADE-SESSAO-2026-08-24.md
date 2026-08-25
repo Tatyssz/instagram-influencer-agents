@@ -132,11 +132,13 @@ Ver `apps/web/.env.example`.
 ## O que ainda falta (etapa 1.5 completa)
 
 - [ ] Migrar `.data/community/*` → **PostgreSQL** (círculos, membros, fila, violações)
-- [ ] Lista explícita de membros do círculo (hoje = “quem conectou IG”)
-- [ ] Execução Playwright de **curtir + comentar** após aprovação na fila
+- [ ] Lista explícita de membros do círculo (hoje = convite + quem conectou IG)
 - [ ] Sync automático populando fila quando parceira posta (Meta API)
+- [ ] Estabilizar execução curtir + comentar (sessões IG, rate limit)
 - [ ] Cotas Pro (1 pedido/dia, 10 ações/dia) + reciprocidade
 - [ ] Deploy staging / domínio
+
+> **Continuação 2026-08-25:** fila engajamento, exec IG, sininho, comentários v7 — ver [`F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md`](F1-ETAPA1.5-COMUNIDADE-SESSAO-2026-08-25.md).
 
 ---
 
