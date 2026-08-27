@@ -52,7 +52,16 @@ Arquivo: `lib/community/suggest-comment.ts` · `COMMENT_GENERATOR_VERSION = 11`.
 | Gate leve | `assertCommunityUnlockedLight()` no PATCH de aprovar — sem sync IG pesado |
 | Fila | `ensurePendingComments` só em pendentes do usuário; queue + members em paralelo |
 | Gate UI | Fila renderiza enquanto follow-gate carrega |
-| Erros | `user-facing-error.ts` — não expor TypeError na UI |
+| Erros | `user-facing-error.ts`, `FriendlyErrorBoundary`, `error.tsx`, `normalize-queue-response.ts` |
+
+### 6. Reels — assistir até o fim (interno)
+
+| Item | Detalhe |
+|------|---------|
+| Execução | `reel-watch.ts` — Chrome headless aguarda `<video>` terminar **antes** do like |
+| UX | Item `executing` sai da fila inbox — processa em segundo plano |
+| Auditoria | `reelWatchedAt` no action + log `[reel-watch]` no servidor |
+| Testes | `npm run test:reel-watch` (8 testes) |
 
 ---
 
@@ -73,7 +82,8 @@ Arquivo: `lib/community/suggest-comment.ts` · `COMMENT_GENERATOR_VERSION = 11`.
 | Fila inbox + histórico | `community-client.tsx`, `requests.ts`, `queue/route.ts`, `queue/history/route.ts` |
 | Meus posts | `my-posts-client.tsx`, `my-posts/route.ts`, `lib/instagram/graph.ts` |
 | Comentários v11 | `suggest-comment.ts`, `comment-golden-fixtures.ts` |
-| Performance / erros | `follow-gate.ts`, `community-follow-gate.tsx`, `actions/[id]/route.ts`, `user-facing-error.ts` |
+| Performance / erros | `follow-gate.ts`, `community-follow-gate.tsx`, `friendly-error-boundary.tsx`, `normalize-queue-response.ts` |
+| Reel watch | `reel-watch.ts`, `engagement-runner.ts`, `browser-engagement.ts` |
 
 ---
 
@@ -81,12 +91,11 @@ Arquivo: `lib/community/suggest-comment.ts` · `COMMENT_GENERATOR_VERSION = 11`.
 
 ```powershell
 cd apps/web
-npm run test:comments
+npm run test:community
 ```
 
 ---
 
 ## Próximo passo
 
-- Push do piloto quando Tatiana pedir.
 - Migrar Comunidade para PostgreSQL (`api/` + migrations).
